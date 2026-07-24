@@ -350,6 +350,16 @@ export default function Home() {
 
   return (
     <main className={lang === "ar" ? "arabic-site" : "english-site"}>
+      <div className="site-intro" aria-hidden="true">
+        <span>PORTFOLIO · 2026</span>
+        <strong>
+          Ahmed Mohamed <i>Abd ElAal</i>
+        </strong>
+        <div>
+          <span />
+        </div>
+      </div>
+
       <div className="scroll-progress" aria-hidden="true" />
       <div className="pointer-glow" aria-hidden="true" />
 
@@ -401,8 +411,8 @@ export default function Home() {
         <div className="hero-copy">
           <p className="eyebrow">{t.eyebrow}</p>
           <h1 className={lang === "ar" ? "arabic-name" : ""}>
-            {t.firstName}
-            <span>{t.lastName}</span>
+            <span className="hero-name-solid">{t.firstName}</span>
+            <span className="hero-name-outline">{t.lastName}</span>
           </h1>
           <div className="hero-bottom">
             <p>{t.heroBody}</p>
@@ -425,7 +435,7 @@ export default function Home() {
           <img src="/ahmed-portrait.jpg" alt={t.portraitAlt} />
           <figcaption>
             <span>{t.portraitNote}</span>
-            <strong>AHMED ABD ELAAL</strong>
+            <strong>Ahmed Mohamed Abd ElAal</strong>
           </figcaption>
         </figure>
 

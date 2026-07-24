@@ -46,6 +46,88 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+.site-intro {
+  position: fixed;
+  z-index: 2000;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.2rem;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(201, 255, 99, 0.07), transparent 32%),
+    var(--ink);
+  animation: introCurtain 1.65s cubic-bezier(0.76, 0, 0.24, 1) 0.15s both;
+}
+
+.site-intro::before,
+.site-intro::after {
+  content: "";
+  position: absolute;
+  width: 48vw;
+  height: 48vw;
+  border: 1px solid rgba(238, 241, 232, 0.08);
+  border-radius: 50%;
+}
+
+.site-intro::before {
+  top: -32vw;
+  left: -20vw;
+}
+
+.site-intro::after {
+  right: -22vw;
+  bottom: -34vw;
+}
+
+.site-intro > span {
+  position: relative;
+  z-index: 1;
+  color: var(--lime);
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  animation: introText 600ms ease 0.2s both;
+}
+
+.site-intro strong {
+  position: relative;
+  z-index: 1;
+  padding-inline: 5vw;
+  font-size: clamp(2rem, 6vw, 6rem);
+  line-height: 0.95;
+  letter-spacing: -0.065em;
+  text-align: center;
+  text-transform: uppercase;
+  animation: introText 700ms cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+}
+
+.site-intro strong i {
+  color: transparent;
+  font-style: normal;
+  -webkit-text-stroke: 1px rgba(238, 241, 232, 0.7);
+}
+
+.site-intro > div {
+  position: relative;
+  z-index: 1;
+  width: min(360px, 64vw);
+  height: 1px;
+  overflow: hidden;
+  background: rgba(238, 241, 232, 0.16);
+}
+
+.site-intro > div span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--lime);
+  transform-origin: left;
+  animation: introProgress 900ms cubic-bezier(0.65, 0, 0.35, 1) 0.35s both;
+}
+
 .scroll-progress {
   position: fixed;
   z-index: 1000;
@@ -89,6 +171,7 @@ a {
   border-bottom: 1px solid rgba(238, 241, 232, 0.08);
   background: rgba(7, 9, 8, 0.72);
   backdrop-filter: blur(18px);
+  animation: headerEnter 700ms cubic-bezier(0.22, 1, 0.36, 1) 1.25s both;
 }
 
 .logo {
@@ -284,6 +367,7 @@ a {
   color: var(--paper-muted);
   letter-spacing: 0.12em;
   text-transform: uppercase;
+  animation: heroFadeUp 700ms cubic-bezier(0.22, 1, 0.36, 1) 1.28s both;
 }
 
 .kicker-line {
@@ -305,6 +389,7 @@ a {
   font-size: clamp(0.66rem, 0.9vw, 0.78rem);
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  animation: heroFadeUp 700ms cubic-bezier(0.22, 1, 0.36, 1) 1.34s both;
 }
 
 .hero h1 {
@@ -319,9 +404,19 @@ a {
 
 .hero h1 span {
   display: block;
+  animation: heroNameIn 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-name-solid {
+  color: var(--paper);
+  animation-delay: 1.4s !important;
+}
+
+.hero-name-outline {
   color: transparent;
   -webkit-text-stroke: 1.5px rgba(238, 241, 232, 0.68);
   transform: translateX(0.22em);
+  animation-delay: 1.52s !important;
 }
 
 .hero-bottom {
@@ -331,6 +426,7 @@ a {
   justify-content: space-between;
   gap: 3rem;
   margin: 3.2rem 0 0 1vw;
+  animation: heroFadeUp 800ms cubic-bezier(0.22, 1, 0.36, 1) 1.68s both;
 }
 
 .hero-bottom > p {
@@ -459,6 +555,7 @@ a {
   transition:
     transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
     border-color 250ms ease;
+  animation: portraitReveal 950ms cubic-bezier(0.22, 1, 0.36, 1) 1.42s both;
 }
 
 .hero-portrait:hover {
@@ -480,6 +577,7 @@ a {
   object-fit: cover;
   object-position: center 25%;
   filter: saturate(0.9) contrast(1.04);
+  animation: portraitBreath 8s ease-in-out 2.4s infinite alternate;
 }
 
 .hero-portrait figcaption {
@@ -502,8 +600,9 @@ a {
 }
 
 .hero-portrait figcaption strong {
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
+  font-size: 0.84rem;
+  letter-spacing: 0.015em;
+  text-transform: none;
 }
 
 .code-muted {
@@ -708,6 +807,15 @@ a {
     linear-gradient(90deg, var(--line) 1px, transparent 1px);
   background-size: 18px 18px;
   box-shadow: inset 0 0 32px rgba(201, 255, 99, 0.025);
+  animation: iconDrift 5s ease-in-out infinite;
+}
+
+.capability-card:nth-child(2) .capability-icon {
+  animation-delay: -1.6s;
+}
+
+.capability-card:nth-child(3) .capability-icon {
+  animation-delay: -3.2s;
 }
 
 .capability-icon span {
@@ -1285,6 +1393,14 @@ a {
 .project-stats strong {
   font-family: var(--font-geist-mono), monospace;
   font-size: 1.5rem;
+  transition:
+    color 220ms ease,
+    transform 220ms ease;
+}
+
+.project-card:hover .project-stats strong {
+  color: var(--lime);
+  transform: translateY(-3px);
 }
 
 .project-stats span {
@@ -1439,6 +1555,7 @@ a {
   font-size: 0.8rem;
   letter-spacing: 0.12em;
   direction: ltr;
+  animation: starGlow 2.8s ease-in-out infinite;
 }
 
 .testimonial-card blockquote {
@@ -1502,6 +1619,7 @@ a {
   color: var(--lime);
   font-family: var(--font-geist-mono), monospace;
   font-size: 1rem;
+  animation: educationPulse 3.4s ease-in-out infinite;
 }
 
 .education-card > p {
@@ -1682,7 +1800,7 @@ a {
   letter-spacing: -0.055em;
 }
 
-.arabic-site .hero h1 span {
+.arabic-site .hero-name-outline {
   transform: translateX(-0.12em);
 }
 
@@ -1721,6 +1839,134 @@ a {
   animation: reveal linear both;
   animation-timeline: view();
   animation-range: entry 5% cover 28%;
+}
+
+@keyframes introText {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes introProgress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes introCurtain {
+  0%,
+  70% {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  99% {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(-100%);
+  }
+  100% {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes headerEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes heroNameIn {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes portraitReveal {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0 round 24px);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 round 24px);
+  }
+}
+
+@keyframes portraitBreath {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.045);
+  }
+}
+
+@keyframes iconDrift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes starGlow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgba(201, 255, 99, 0));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(201, 255, 99, 0.45));
+  }
+}
+
+@keyframes educationPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(201, 255, 99, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(201, 255, 99, 0.035);
+  }
 }
 
 @keyframes pulse {
@@ -1763,11 +2009,13 @@ a {
 @keyframes reveal {
   from {
     opacity: 0;
-    transform: translateY(45px);
+    transform: translateY(45px) scale(0.985);
+    filter: blur(7px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+    filter: blur(0);
   }
 }
 
@@ -2058,7 +2306,12 @@ a {
   *::after {
     scroll-behavior: auto !important;
     animation-duration: 0.001ms !important;
+    animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
+  }
+
+  .site-intro {
+    display: none;
   }
 
   .reveal {

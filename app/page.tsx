@@ -135,7 +135,7 @@ const projects: Array<{
       ar: "شاركت في تطوير النظام ضمن فريق من مطورين، وساهمت في منطق التوزيع القائم على قواعد ثابتة، والتحقق الآمن من الملفات، واستيراد Excel بشكل Transactional، واختبارات xUnit الآلية.",
     },
     href: "https://github.com/3ab3al11/University-Admission-System",
-    image: "/project-admission.png",
+    image: "/project-admission.webp",
     imageAlt: {
       en: "University Admission System dashboard presentation",
       ar: "واجهة نظام القبول الجامعي",
@@ -163,7 +163,7 @@ const projects: Array<{
       ar: "شاركت في تطوير المنصة ضمن فريق من مطورين، وعملت على تدفقات الصلاحيات، وحالات المواعيد، ومنع الحجز المزدوج، وحماية بيانات المرضى، والتحقق على الخادم.",
     },
     href: "https://github.com/3ab3al11/Clinic_Flow",
-    image: "/project-clinic.png",
+    image: "/project-clinic.webp",
     imageAlt: {
       en: "Clinic Flow administration dashboard",
       ar: "لوحة تحكم نظام Clinic Flow",
@@ -194,7 +194,7 @@ const projects: Array<{
       ar: "شاركت في تطوير النظام ضمن فريق من مطورين، ونفذت منع تعارض الحجوزات، والحجز المؤقت لمدة 10 دقائق، وتدفقات الدفع والاسترداد، والتذكيرات، وحماية CSRF، وحالات الاختبار.",
     },
     href: "https://github.com/3ab3al11/Football-Field-Booking-System",
-    image: "/project-football.png",
+    image: "/project-football.webp",
     imageAlt: {
       en: "Football Field Booking dashboard presentation",
       ar: "واجهة نظام حجز ملاعب كرة القدم",

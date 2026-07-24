@@ -2101,6 +2101,17 @@ a {
   }
 }
 
+@keyframes revealMobile {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 1024px) {
   .hero-portrait {
     width: min(300px, 28vw);
@@ -2132,8 +2143,11 @@ a {
 
   .site-header {
     grid-template-columns: 1fr auto;
-    height: 66px;
-    padding-inline: 5vw;
+    height: calc(66px + env(safe-area-inset-top));
+    padding-top: env(safe-area-inset-top);
+    padding-inline:
+      max(5vw, env(safe-area-inset-left))
+      max(5vw, env(safe-area-inset-right));
   }
 
   .site-header nav {
@@ -2148,20 +2162,35 @@ a {
     display: none;
   }
 
+  .language-toggle {
+    min-height: 42px;
+  }
+
   .hero {
-    min-height: 1060px;
-    align-items: start;
-    padding: 155px 5vw 80px;
+    display: block;
+    min-height: auto;
+    padding: 150px 5vw 72px;
   }
 
   .hero-kicker {
     top: 102px;
     left: 5vw;
+    max-width: 90vw;
+    gap: 0.5rem;
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+
+  .kicker-line {
+    width: 24px;
+    flex: 0 0 24px;
   }
 
   .hero h1 {
-    font-size: clamp(4.4rem, 23vw, 7rem);
-    line-height: 0.77;
+    max-width: 100%;
+    font-size: clamp(4rem, 21.5vw, 6.5rem);
+    line-height: 0.79;
   }
 
   .hero h1 span {
@@ -2172,37 +2201,54 @@ a {
     width: 100%;
     flex-direction: column;
     align-items: start;
-    gap: 1.8rem;
-    margin-top: 2.6rem;
+    gap: 1.35rem;
+    margin: 2.2rem 0 0;
+  }
+
+  .hero-bottom > p {
+    max-width: 34rem;
+    font-size: 0.98rem;
   }
 
   .hero-actions {
     width: 100%;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
   }
 
   .button {
-    flex: 1;
     min-height: 50px;
     padding-inline: 1rem;
-    font-size: 0.57rem;
+    font-size: 0.58rem;
   }
 
   .hero-portrait {
-    right: 5vw;
-    bottom: 70px;
-    width: min(78vw, 390px);
-    height: 430px;
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: min(82vw, 370px);
+    height: clamp(390px, 108vw, 450px);
+    margin: 2.5rem auto 0;
+    transform: rotate(0.7deg);
+  }
+
+  .hero-portrait img {
+    object-position: center 25%;
+    transform: scale(1.16);
+    transform-origin: 30% center;
+    animation: none;
   }
 
   .arabic-site .hero-portrait {
     right: auto;
-    left: 5vw;
+    left: auto;
   }
 
   .arabic-site .hero h1 {
     max-width: 100%;
-    font-size: clamp(4.5rem, 20vw, 7rem);
+    font-size: clamp(3.65rem, 17vw, 6rem);
+    line-height: 0.9;
   }
 
   .arabic-site .manifesto-detail {
@@ -2245,6 +2291,13 @@ a {
     margin-top: 3rem;
   }
 
+  .manifesto h2,
+  .section-heading h2,
+  .contact h2 {
+    font-size: clamp(2.75rem, 14vw, 4.5rem);
+    text-wrap: balance;
+  }
+
   .manifesto-detail {
     grid-template-columns: 1fr;
     gap: 2.2rem;
@@ -2280,11 +2333,36 @@ a {
   }
 
   .project-copy {
-    min-height: 680px;
+    min-height: 0;
+    padding: 2rem 1.5rem;
+  }
+
+  .project-subtitle {
+    margin-top: 3rem;
+  }
+
+  .project-copy h3 {
+    max-width: 12ch;
+    font-size: clamp(2.1rem, 11vw, 3.2rem);
+  }
+
+  .project-description {
+    margin: 1.25rem 0 1.4rem;
+    font-size: 0.91rem;
+  }
+
+  .project-role {
+    margin-bottom: 1.25rem;
+    padding: 0.9rem;
+  }
+
+  .tech-list {
+    margin-bottom: 1.3rem;
   }
 
   .project-showcase {
     min-height: 0;
+    padding: 0.75rem;
   }
 
   .allocation-grid {
@@ -2317,6 +2395,11 @@ a {
     flex-direction: column;
   }
 
+  .reveal {
+    animation-name: revealMobile;
+    animation-range: entry 0% cover 18%;
+  }
+
   .education-card > p {
     margin-top: 5rem;
   }
@@ -2347,6 +2430,11 @@ a {
     flex-wrap: wrap;
   }
 
+  .social-links a,
+  .contact-footer > a {
+    padding-block: 0.35rem;
+  }
+
   .contact-footer > p {
     font-size: 0.5rem;
   }
@@ -2354,11 +2442,11 @@ a {
 
 @media (max-width: 480px) {
   .hero-actions {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 
   .project-copy {
-    min-height: 720px;
+    min-height: 0;
   }
 
   .project-showcase {

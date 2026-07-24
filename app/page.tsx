@@ -478,11 +478,7 @@ export default function Home() {
   };
 
   return (
-    <main
-      className={`${lang === "ar" ? "arabic-site" : "english-site"}${
-        languageTransitioning ? " language-transitioning" : ""
-      }`}
-    >
+    <>
       {introVisible && (
         <div className="site-intro" aria-hidden="true">
           <span>PORTFOLIO · 2026</span>
@@ -495,6 +491,11 @@ export default function Home() {
         </div>
       )}
 
+      <main
+        className={`${lang === "ar" ? "arabic-site" : "english-site"}${
+          languageTransitioning ? " language-transitioning" : ""
+        }`}
+      >
       <div className="scroll-progress" aria-hidden="true" />
       <div className="pointer-glow" aria-hidden="true" />
 
@@ -825,6 +826,7 @@ export default function Home() {
           <a href="#top">{t.backToTop} ↑</a>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 }

@@ -377,16 +377,7 @@ export default function Home() {
   const localize = (value: Localized) => value[lang];
 
   useEffect(() => {
-    const introWasSeen =
-      window.sessionStorage.getItem("portfolio-intro-seen") === "true";
-
-    if (introWasSeen) {
-      setIntroVisible(false);
-      return;
-    }
-
-    window.sessionStorage.setItem("portfolio-intro-seen", "true");
-    const timer = window.setTimeout(() => setIntroVisible(false), 1250);
+    const timer = window.setTimeout(() => setIntroVisible(false), 2050);
 
     return () => window.clearTimeout(timer);
   }, []);
@@ -812,6 +803,9 @@ export default function Home() {
           >
             ahmed.moh.abdelaal.dev@gmail.com <span>↗</span>
           </a>
+          <a className="contact-phone ltr" href="tel:+201021470391">
+            +201021470391 <span>↗</span>
+          </a>
         </div>
         <div className="contact-footer">
           <div className="social-links ltr">
@@ -825,7 +819,7 @@ export default function Home() {
             >
               LinkedIn ↗
             </a>
-            <a href="tel:+201021470391">+20 102 147 0391</a>
+            <a href="tel:+201021470391">+201021470391</a>
           </div>
           <p>© {new Date().getFullYear()} Ahmed Mohamed Abd Elaal</p>
           <a href="#top">{t.backToTop} ↑</a>

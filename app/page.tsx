@@ -40,6 +40,11 @@ const copy = {
     experienceLabel: "Experience",
     codeContent: "Code, content",
     leadership: "& leadership.",
+    testimonialLabel: "Verified client review",
+    testimonialQuote:
+      "Thank you, Engineer Ahmed. Excellent, fast, and outstanding work. I recommend working with him.",
+    testimonialSource: "Verified 5-star review · Khamsat",
+    viewReview: "View original review",
     education: "Computer Science & Artificial Intelligence",
     graduated: "Graduated 2026",
     contactLabel: "Contact",
@@ -83,6 +88,11 @@ const copy = {
     experienceLabel: "الخبرات",
     codeContent: "برمجة، محتوى",
     leadership: "وقيادة.",
+    testimonialLabel: "تقييم عميل موثّق",
+    testimonialQuote:
+      "شكرًا يا بشمهندس أحمد، عمل رائع وسريع ومتميز. أنصح بالتعامل معه.",
+    testimonialSource: "تقييم موثّق بخمس نجوم · خمسات",
+    viewReview: "عرض التقييم الأصلي",
     education: "علوم الحاسب والذكاء الاصطناعي",
     graduated: "تخرجت عام 2026",
     contactLabel: "تواصل معي",
@@ -569,6 +579,31 @@ export default function Home() {
                     {localize(item.company)}
                   </p>
                   <p className="timeline-copy">{localize(item.copy)}</p>
+                  {index === 0 && (
+                    <a
+                      className="testimonial-card"
+                      href="https://khamsat.com/user/a7med3ab3al/reviews/1142928"
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={t.viewReview}
+                    >
+                      <div className="testimonial-head">
+                        <span
+                          className="testimonial-stars"
+                          role="img"
+                          aria-label="5 out of 5 stars"
+                        >
+                          ★★★★★
+                        </span>
+                        <span>{t.testimonialLabel}</span>
+                      </div>
+                      <blockquote>“{t.testimonialQuote}”</blockquote>
+                      <div className="testimonial-source">
+                        <span>{t.testimonialSource}</span>
+                        <span>{t.viewReview} ↗</span>
+                      </div>
+                    </a>
+                  )}
                 </div>
               </article>
             ))}

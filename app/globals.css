@@ -1394,6 +1394,70 @@ a {
   line-height: 1.65;
 }
 
+.testimonial-card {
+  display: block;
+  max-width: 42rem;
+  margin-top: 1.5rem;
+  padding: 1.2rem 1.3rem;
+  border: 1px solid rgba(201, 255, 99, 0.22);
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, rgba(201, 255, 99, 0.065), transparent 62%),
+    rgba(16, 21, 17, 0.72);
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.testimonial-card:hover {
+  border-color: rgba(201, 255, 99, 0.52);
+  background:
+    linear-gradient(135deg, rgba(201, 255, 99, 0.1), transparent 62%),
+    rgba(16, 21, 17, 0.88);
+  transform: translateY(-2px);
+}
+
+.testimonial-head,
+.testimonial-source {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.testimonial-head {
+  color: var(--paper-muted);
+}
+
+.testimonial-stars {
+  color: var(--lime);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  direction: ltr;
+}
+
+.testimonial-card blockquote {
+  margin: 1.25rem 0;
+  color: var(--paper);
+  font-size: clamp(1rem, 1.35vw, 1.22rem);
+  line-height: 1.65;
+}
+
+.testimonial-source {
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+  color: var(--paper-muted);
+}
+
+.testimonial-source span:last-child {
+  color: var(--lime);
+}
+
 .education-card {
   position: sticky;
   top: 104px;
@@ -1914,6 +1978,11 @@ a {
 
   .timeline-item > div {
     grid-column: 2;
+  }
+
+  .testimonial-source {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .education-card > p {

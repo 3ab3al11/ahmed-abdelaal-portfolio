@@ -645,7 +645,7 @@ a {
 
 .capability-card {
   position: relative;
-  min-height: 420px;
+  min-height: 360px;
   padding: 2.2rem;
   border-left: 1px solid var(--line);
   overflow: hidden;
@@ -693,26 +693,59 @@ a {
 
 .capability-icon {
   position: absolute;
-  top: 2.2rem;
+  top: 3.2rem;
   right: 2.2rem;
   display: flex;
-  width: 38px;
-  height: 38px;
+  width: 112px;
+  height: 76px;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 8px;
   border: 1px solid var(--line);
-  border-radius: 50%;
+  border-radius: 14px;
+  background:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 18px 18px;
+  box-shadow: inset 0 0 32px rgba(201, 255, 99, 0.025);
 }
 
 .capability-icon span {
-  width: 3px;
-  height: 13px;
+  width: 7px;
+  height: 24px;
+  border-radius: 99px;
   background: var(--paper);
+  box-shadow: 0 0 16px rgba(238, 241, 232, 0.12);
 }
 
 .capability-icon span:nth-child(2) {
-  height: 21px;
+  height: 43px;
+  background: var(--lime);
+}
+
+.capability-card:nth-child(2) .capability-icon {
+  border-radius: 999px;
+}
+
+.capability-card:nth-child(2) .capability-icon span {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--paper);
+  background: transparent;
+}
+
+.capability-card:nth-child(2) .capability-icon span:nth-child(2) {
+  border-color: var(--lime);
+}
+
+.capability-card:nth-child(3) .capability-icon {
+  clip-path: polygon(50% 0, 92% 18%, 84% 74%, 50% 100%, 16% 74%, 8% 18%);
+  border-radius: 0;
+}
+
+.capability-card:nth-child(3) .capability-icon span {
+  width: 8px;
+  height: 8px;
 }
 
 .capability-card:hover .capability-icon {
@@ -724,7 +757,7 @@ a {
 }
 
 .capability-card h3 {
-  margin: 14rem 0 1rem;
+  margin: 10rem 0 1rem;
   font-size: clamp(1.7rem, 2.6vw, 2.6rem);
   letter-spacing: -0.05em;
   text-transform: uppercase;
@@ -763,7 +796,7 @@ a {
 
 .project-card {
   display: grid;
-  grid-template-columns: 0.95fr 1.05fr;
+  grid-template-columns: 0.88fr 1.12fr;
   min-height: 720px;
   border: 1px solid var(--line);
   border-radius: 24px;
@@ -886,7 +919,9 @@ a {
 
 .project-image-wrap {
   position: relative;
-  flex: 1;
+  flex: none;
+  width: 100%;
+  aspect-ratio: 16 / 10;
   min-height: 0;
   margin: 0;
   overflow: hidden;
@@ -904,14 +939,16 @@ a {
 }
 
 .project-image-wrap img {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .project-card:hover .project-image-wrap img {
-  transform: scale(1.035);
+  transform: scale(1.015);
 }
 
 .project-image-wrap figcaption {
@@ -1297,7 +1334,7 @@ a {
 
 .experience-layout {
   display: grid;
-  grid-template-columns: 1.45fr 0.55fr;
+  grid-template-columns: minmax(0, 1.55fr) minmax(320px, 0.45fr);
   gap: 1.2rem;
 }
 
@@ -1363,25 +1400,51 @@ a {
   align-self: start;
   min-height: 420px;
   padding: 2rem;
+  overflow: hidden;
+  border: 1px solid rgba(201, 255, 99, 0.22);
   border-radius: 22px;
-  background: var(--purple);
-  color: var(--ink);
+  background:
+    radial-gradient(circle at 92% 8%, rgba(201, 255, 99, 0.17), transparent 34%),
+    linear-gradient(145deg, #151a16, #0a0d0b 72%);
+  color: var(--paper);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.025);
+}
+
+.education-card::before {
+  content: "";
+  position: absolute;
+  right: -92px;
+  bottom: -92px;
+  width: 220px;
+  height: 220px;
+  border: 1px solid rgba(201, 255, 99, 0.16);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 30px rgba(201, 255, 99, 0.02),
+    0 0 0 60px rgba(201, 255, 99, 0.012);
 }
 
 .education-mark {
+  position: relative;
+  z-index: 1;
   display: flex;
   width: 78px;
   height: 78px;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(7, 9, 8, 0.35);
+  border: 1px solid rgba(201, 255, 99, 0.45);
   border-radius: 50%;
+  background: rgba(201, 255, 99, 0.07);
+  color: var(--lime);
   font-family: var(--font-geist-mono), monospace;
   font-size: 1rem;
 }
 
 .education-card > p {
-  margin: 7rem 0 0.5rem;
+  position: relative;
+  z-index: 1;
+  margin: 5.2rem 0 0.65rem;
+  color: var(--lime);
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.62rem;
   letter-spacing: 0.08em;
@@ -1389,19 +1452,25 @@ a {
 }
 
 .education-card h3 {
+  position: relative;
+  z-index: 1;
   margin: 0;
-  font-size: clamp(2rem, 3.6vw, 3.8rem);
+  max-width: 11ch;
+  font-size: clamp(2rem, 3vw, 3.25rem);
   line-height: 0.95;
   letter-spacing: -0.06em;
   text-transform: uppercase;
 }
 
 .education-card div {
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   margin-top: 2rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(7, 9, 8, 0.3);
+  border-top: 1px solid var(--line);
+  color: var(--paper-muted);
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.57rem;
   letter-spacing: 0.06em;
@@ -1409,9 +1478,11 @@ a {
 }
 
 .education-card small {
+  position: relative;
+  z-index: 1;
   display: block;
   margin-top: 2rem;
-  color: rgba(7, 9, 8, 0.67);
+  color: var(--paper-muted);
   line-height: 1.5;
 }
 
@@ -1795,13 +1866,13 @@ a {
   }
 
   .capability-card {
-    min-height: 320px;
+    min-height: 300px;
     border-right: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
   }
 
   .capability-card h3 {
-    margin-top: 8rem;
+    margin-top: 7.5rem;
   }
 
   .section-heading {
@@ -1817,7 +1888,7 @@ a {
   }
 
   .project-showcase {
-    min-height: 500px;
+    min-height: 0;
   }
 
   .allocation-grid {
@@ -1889,7 +1960,7 @@ a {
   }
 
   .project-showcase {
-    min-height: 455px;
+    min-height: 0;
   }
 
   .project-stats div {

@@ -27,8 +27,12 @@ const copy = {
     explore: "Explore projects",
     download: "Download CV",
     scroll: "Scroll to discover",
-    portraitAlt: "Ahmed Mohamed Abd Elaal",
+    portraitAlt: "Ahmed Mohamed Abd ElAal",
     portraitNote: "Backend engineer · Cairo",
+    homeLabel: "Ahmed Mohamed Abd ElAal, home",
+    navigationLabel: "Main navigation",
+    stackLabel: "Technology stack",
+    starsLabel: "5 out of 5 stars",
     aboutLabel: "About",
     moreThan: "MORE THAN ENDPOINTS.",
     manifestoLead: "I turn business rules into",
@@ -43,7 +47,7 @@ const copy = {
     myRole: "My role",
     viewRepo: "View repository",
     experienceLabel: "Experience",
-    codeContent: "Code, content",
+    codeContent: "Code · Content",
     leadership: "& leadership.",
     testimonialLabel: "Verified client review",
     testimonialQuote:
@@ -52,6 +56,8 @@ const copy = {
     viewReview: "View original review",
     education: "Computer Science & Artificial Intelligence",
     graduated: "Graduated 2026",
+    training:
+      "Training: Back-End .NET — Eraa Soft · PHP & WordPress — ITI · Front-End Development — ITI",
     contactLabel: "Contact",
     contactIntro: "Have a backend problem worth solving?",
     letsBuild: "Let’s build",
@@ -77,6 +83,10 @@ const copy = {
     scroll: "اكتشف المزيد",
     portraitAlt: "أحمد محمد عبدالعال",
     portraitNote: "مهندس Backend · القاهرة",
+    homeLabel: "أحمد محمد عبدالعال، الصفحة الرئيسية",
+    navigationLabel: "التنقل الرئيسي",
+    stackLabel: "التقنيات المستخدمة",
+    starsLabel: "خمس نجوم من خمس",
     aboutLabel: "نبذة عني",
     moreThan: "أكثر من مجرد API.",
     manifestoLead: "أحوّل قواعد العمل إلى",
@@ -91,7 +101,7 @@ const copy = {
     myRole: "دوري في المشروع",
     viewRepo: "عرض المشروع على GitHub",
     experienceLabel: "الخبرات",
-    codeContent: "برمجة، محتوى",
+    codeContent: "برمجة · محتوى",
     leadership: "وقيادة.",
     testimonialLabel: "تقييم عميل موثّق",
     testimonialQuote:
@@ -100,6 +110,8 @@ const copy = {
     viewReview: "عرض التقييم الأصلي",
     education: "علوم الحاسب والذكاء الاصطناعي",
     graduated: "تخرجت عام 2026",
+    training:
+      "التدريب: Back-End .NET — Eraa Soft · PHP وWordPress — ITI · Front-End Development — ITI",
     contactLabel: "تواصل معي",
     contactIntro: "هل لديك تحدٍ تقني يستحق الحل؟",
     letsBuild: "لنبنِ",
@@ -284,7 +296,7 @@ const experience: Array<{
     },
     company: { en: "Sahab Real Estate", ar: "سحاب للتطوير العقاري" },
     copy: {
-      en: "Create campaign content, promotional assets, and coordinated publishing plans with the wider team.",
+      en: "Develop campaign content, promotional assets, and coordinated publishing plans in collaboration with the wider team.",
       ar: "أصمم محتوى الحملات والمواد الدعائية وخطط النشر بالتنسيق مع فريق العمل.",
     },
   },
@@ -306,28 +318,28 @@ const experience: Array<{
 ];
 
 function AnimatedStat({ value }: { value: string }) {
-  const [displayValue, setDisplayValue] = useState("0");
+  const initialValue = value.match(/^(\d+)(.*)$/);
+  const [displayValue, setDisplayValue] = useState(
+    initialValue ? `0${initialValue[2]}` : value,
+  );
   const elementRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const match = value.match(/^(\d+)(.*)$/);
-    if (!match) {
-      setDisplayValue(value);
-      return;
-    }
+    if (!match) return;
 
     const target = Number(match[1]);
     const suffix = match[2];
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
+    let animationFrame = 0;
 
     if (prefersReducedMotion) {
-      setDisplayValue(value);
-      return;
+      animationFrame = requestAnimationFrame(() => setDisplayValue(value));
+      return () => cancelAnimationFrame(animationFrame);
     }
 
-    let animationFrame = 0;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
@@ -384,9 +396,13 @@ export default function Home() {
 
   useEffect(() => {
     const saved = window.localStorage.getItem("portfolio-language");
+    let frame = 0;
+
     if (saved === "ar" || saved === "en") {
-      setLang(saved);
+      frame = window.requestAnimationFrame(() => setLang(saved));
     }
+
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {
@@ -491,19 +507,14 @@ export default function Home() {
         </div>
       )}
 
-      <main
-        className={`${lang === "ar" ? "arabic-site" : "english-site"}${
-          languageTransitioning ? " language-transitioning" : ""
-        }`}
-      >
       <div className="scroll-progress" aria-hidden="true" />
       <div className="pointer-glow" aria-hidden="true" />
 
       <header className="site-header">
-        <a className="logo" href="#top" aria-label="Ahmed AbdelAal, home">
+        <a className="logo" href="#top" aria-label={t.homeLabel}>
           A<span>.</span>A
         </a>
-        <nav aria-label="Main navigation">
+        <nav aria-label={t.navigationLabel}>
           <a href="#about">{t.about}</a>
           <a href="#work">{t.projects}</a>
           <a href="#experience">{t.experience}</a>
@@ -529,6 +540,13 @@ export default function Home() {
         </div>
       </header>
 
+      <main
+        className={`${lang === "ar" ? "arabic-site" : "english-site"}${
+          languageTransitioning ? " language-transitioning" : ""
+        }`}
+        lang={lang}
+        dir={lang === "ar" ? "rtl" : "ltr"}
+      >
       <section className="hero" id="top">
         <div className="hero-noise" aria-hidden="true" />
         <div className="orbit orbit-one" aria-hidden="true">
@@ -575,7 +593,16 @@ export default function Home() {
         </div>
 
         <figure className="hero-portrait">
-          <img src="/ahmed-portrait.jpg" alt={t.portraitAlt} />
+          {/* The source is already resized and compressed for this exact layout. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/ahmed-portrait.webp"
+            alt={t.portraitAlt}
+            width="900"
+            height="1255"
+            fetchPriority="high"
+            decoding="async"
+          />
           <figcaption>
             <span>{t.portraitNote}</span>
             <strong>Ahmed Mohamed Abd ElAal</strong>
@@ -676,10 +703,13 @@ export default function Home() {
               </div>
               <div className="project-showcase">
                 <figure className="project-image-wrap">
+                  {/* Project artwork is pre-compressed and served at its native ratio. */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={project.image}
                     alt={localize(project.imageAlt)}
                     loading="lazy"
+                    decoding="async"
                   />
                   <figcaption>
                     <span>{localize(project.title)}</span>
@@ -700,7 +730,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="stack-section" aria-label="Technology stack">
+      <section className="stack-section" aria-label={t.stackLabel}>
         <div className="stack-marquee">
           {[...stack, ...stack].map((item, index) => (
             <span key={`${item}-${index}`}>
@@ -718,6 +748,7 @@ export default function Home() {
           </div>
           <h2>
             {t.codeContent}
+            {" "}
             <span>{t.leadership}</span>
           </h2>
         </div>
@@ -748,7 +779,7 @@ export default function Home() {
                         <span
                           className="testimonial-stars"
                           role="img"
-                          aria-label="5 out of 5 stars"
+                          aria-label={t.starsLabel}
                         >
                           ★★★★★
                         </span>
@@ -778,10 +809,7 @@ export default function Home() {
               <span>{t.graduated}</span>
               <span>{t.gpa} 3.16</span>
             </div>
-            <small>
-              Back-End .NET — Eraa Soft · PHP & WordPress — ITI · Front-End —
-              ITI
-            </small>
+            <small>{t.training}</small>
           </aside>
         </div>
       </section>
@@ -822,7 +850,7 @@ export default function Home() {
             </a>
             <a href="tel:+201021470391">+201021470391</a>
           </div>
-          <p>© {new Date().getFullYear()} Ahmed Mohamed Abd Elaal</p>
+          <p>© {new Date().getFullYear()} Ahmed Mohamed Abd ElAal</p>
           <a href="#top">{t.backToTop} ↑</a>
         </div>
       </section>

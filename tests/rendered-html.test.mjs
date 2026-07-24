@@ -31,13 +31,14 @@ test("server-renders Ahmed's production portfolio", async () => {
   const html = await response.text();
   assert.match(
     html,
-    /<title>Ahmed Mohamed Abd Elaal \| Backend \.NET Developer<\/title>/i,
+    /<title>Ahmed Mohamed Abd ElAal \| Backend \.NET Developer<\/title>/i,
   );
   assert.match(html, /AHMED/);
   assert.match(html, /ABD ELAAL/);
   assert.match(html, /University Admission System/);
   assert.match(html, /Clinic Flow/);
   assert.match(html, /Football Field Booking/);
+  assert.match(html, /Code · Content/);
   assert.match(html, /href="tel:\+201021470391"/);
   assert.match(html, /href="\/Ahmed_Mohamed_AbdelAal_CV\.pdf"/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
@@ -55,5 +56,7 @@ test("keeps the mobile layout and reduced-motion safeguards", async () => {
   assert.match(css, /@keyframes\s+revealMobile/);
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)/);
   assert.match(page, /aria-label=\{t\.switchLabel\}/);
+  assert.match(page, /aria-label=\{t\.navigationLabel\}/);
+  assert.match(page, /aria-label=\{t\.stackLabel\}/);
   assert.match(page, /loading="lazy"/);
 });

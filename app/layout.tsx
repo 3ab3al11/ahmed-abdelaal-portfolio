@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
     requestHeaders.get("x-forwarded-proto") ??
     (host.startsWith("localhost") ? "http" : "https");
   const baseUrl = `${protocol}://${host}`;
-  const title = "Ahmed Mohamed Abd Elaal | Backend .NET Developer";
+  const title = "Ahmed Mohamed Abd ElAal | Backend .NET Developer";
   const description =
     "Backend .NET developer building secure, testable systems with C#, ASP.NET Core, Entity Framework Core, and SQL Server.";
 
@@ -32,14 +32,14 @@ export async function generateMetadata(): Promise<Metadata> {
     title,
     description,
     keywords: [
-      "Ahmed Mohamed Abd Elaal",
+      "Ahmed Mohamed Abd ElAal",
       "Backend .NET Developer",
       "ASP.NET Core",
       "C#",
       "Entity Framework Core",
       "SQL Server",
     ],
-    authors: [{ name: "Ahmed Mohamed Abd Elaal" }],
+    authors: [{ name: "Ahmed Mohamed Abd ElAal" }],
     openGraph: {
       title,
       description,
@@ -49,7 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: `${baseUrl}/og.png`,
           width: 1792,
           height: 936,
-          alt: "Ahmed Abd Elaal — Backend .NET Developer",
+          alt: "Ahmed Mohamed Abd ElAal — Backend .NET Developer",
         },
       ],
     },

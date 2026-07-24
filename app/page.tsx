@@ -1,70 +1,231 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-const projects = [
+type Lang = "en" | "ar";
+type Localized = { en: string; ar: string };
+
+const copy = {
+  en: {
+    about: "About",
+    projects: "Projects",
+    experience: "Experience",
+    contact: "Contact",
+    available: "Available for work",
+    cairo: "Cairo, Egypt",
+    role: "Backend .NET Developer",
+    eyebrow: "I design the logic behind reliable products.",
+    firstName: "AHMED",
+    lastName: "ABD ELAAL",
+    heroBody:
+      "Building secure, testable backend systems with C#, ASP.NET Core, EF Core, and SQL Server.",
+    explore: "Explore projects",
+    download: "Download CV",
+    scroll: "Scroll to discover",
+    portraitAlt: "Ahmed Mohamed Abd Elaal",
+    portraitNote: "Backend engineer · Cairo",
+    aboutLabel: "About",
+    moreThan: "MORE THAN ENDPOINTS.",
+    manifestoLead: "I turn business rules into",
+    manifestoOutline: "systems people can trust.",
+    bio: "I’m a Backend .NET Developer and Computer Science & Artificial Intelligence graduate focused on building secure, maintainable systems. My goal is to join a global technology company where I can contribute to real products, learn from high-performing teams, and grow into a world-class backend engineer.",
+    graduate: "B.Sc. Graduate",
+    gpa: "GPA",
+    language: "Native · English working proficiency",
+    selected: "Selected projects",
+    systemsBuilt: "Systems built",
+    toHoldUp: "to hold up.",
+    myRole: "My role",
+    viewRepo: "View repository",
+    experienceLabel: "Experience",
+    codeContent: "Code, content",
+    leadership: "& leadership.",
+    education: "Computer Science & Artificial Intelligence",
+    graduated: "Graduated 2026",
+    contactLabel: "Contact",
+    contactIntro: "Have a backend problem worth solving?",
+    letsBuild: "Let’s build",
+    somethingSolid: "something solid.",
+    backToTop: "Back to top",
+    switchLabel: "عرض الموقع بالعربية",
+  },
+  ar: {
+    about: "نبذة عني",
+    projects: "المشاريع",
+    experience: "الخبرات",
+    contact: "تواصل معي",
+    available: "متاح لفرص العمل",
+    cairo: "القاهرة، مصر",
+    role: "مطور Backend .NET",
+    eyebrow: "أحوّل منطق الأعمال إلى أنظمة موثوقة.",
+    firstName: "أحمد",
+    lastName: "عبدالعال",
+    heroBody:
+      "أبني أنظمة خلفية آمنة وقابلة للاختبار باستخدام C# وASP.NET Core وEF Core وSQL Server.",
+    explore: "استعرض المشاريع",
+    download: "تحميل السيرة الذاتية",
+    scroll: "اكتشف المزيد",
+    portraitAlt: "أحمد محمد عبدالعال",
+    portraitNote: "مهندس Backend · القاهرة",
+    aboutLabel: "نبذة عني",
+    moreThan: "أكثر من مجرد API.",
+    manifestoLead: "أحوّل قواعد العمل إلى",
+    manifestoOutline: "أنظمة يمكن الوثوق بها.",
+    bio: "أنا مطور Backend .NET وخريج علوم الحاسب والذكاء الاصطناعي، أركز على بناء أنظمة آمنة وقابلة للتطوير والصيانة. هدفي الانضمام إلى شركة تقنية عالمية أساهم فيها في تطوير منتجات حقيقية، وأتعلم من فرق قوية، وأتطور إلى مهندس Backend على مستوى عالمي.",
+    graduate: "بكالوريوس 2026",
+    gpa: "التقدير التراكمي",
+    language: "لغة أم · الإنجليزية جيدة",
+    selected: "أبرز المشاريع",
+    systemsBuilt: "أنظمة صُممت",
+    toHoldUp: "لتعمل بثبات.",
+    myRole: "دوري في المشروع",
+    viewRepo: "عرض المشروع على GitHub",
+    experienceLabel: "الخبرات",
+    codeContent: "برمجة، محتوى",
+    leadership: "وقيادة.",
+    education: "علوم الحاسب والذكاء الاصطناعي",
+    graduated: "تخرجت عام 2026",
+    contactLabel: "تواصل معي",
+    contactIntro: "هل لديك تحدٍ تقني يستحق الحل؟",
+    letsBuild: "لنبنِ",
+    somethingSolid: "شيئًا قويًا.",
+    backToTop: "العودة للأعلى",
+    switchLabel: "View site in English",
+  },
+} as const;
+
+const projects: Array<{
+  index: string;
+  title: Localized;
+  subtitle: Localized;
+  description: Localized;
+  role: Localized;
+  href: string;
+  image: string;
+  imageAlt: Localized;
+  tech: string[];
+  stats: Array<[string, Localized]>;
+}> = [
   {
     index: "01",
-    title: "University Admission System",
-    subtitle: "Bilingual admissions, built for deterministic decisions.",
-    description:
-      "A rule-driven ASP.NET Core MVC platform that handles applications, document safety, allocation, and high-volume Excel imports without sacrificing traceability.",
+    title: {
+      en: "University Admission System",
+      ar: "نظام القبول الجامعي",
+    },
+    subtitle: {
+      en: "Bilingual admissions, built for deterministic decisions.",
+      ar: "منصة قبول ثنائية اللغة مبنية لقرارات توزيع دقيقة.",
+    },
+    description: {
+      en: "A rule-driven ASP.NET Core MVC platform that handles applications, document safety, allocation, and high-volume Excel imports without sacrificing traceability.",
+      ar: "منصة مبنية بـASP.NET Core MVC لإدارة طلبات التقديم، والتحقق الآمن من الملفات، والتوزيع القائم على قواعد ثابتة، واستيراد بيانات Excel بأحجام كبيرة.",
+    },
+    role: {
+      en: "Co-engineered the system in a two-developer team. I contributed to the deterministic allocation workflow, file-safety validation, transactional Excel bulk importer, and the automated xUnit test suite.",
+      ar: "شاركت في تطوير النظام ضمن فريق من مطورين، وساهمت في منطق التوزيع القائم على قواعد ثابتة، والتحقق الآمن من الملفات، واستيراد Excel بشكل Transactional، واختبارات xUnit الآلية.",
+    },
     href: "https://github.com/3ab3al11/University-Admission-System",
+    image: "/project-admission.png",
+    imageAlt: {
+      en: "University Admission System dashboard presentation",
+      ar: "واجهة نظام القبول الجامعي",
+    },
     tech: ["ASP.NET Core MVC", "EF Core", "SQL Server", "xUnit"],
     stats: [
-      ["15", "SQL tables"],
-      ["56", "controller actions"],
-      ["129", "automated tests"],
+      ["15", { en: "SQL tables", ar: "جدول SQL" }],
+      ["56", { en: "controller actions", ar: "إجراء Controller" }],
+      ["129", { en: "automated tests", ar: "اختبار آلي" }],
     ],
-    visual: "admission",
   },
   {
     index: "02",
-    title: "Clinic Flow",
-    subtitle: "A secure workflow for patients, doctors, and admins.",
-    description:
-      "A role-aware clinic platform with six appointment states, protected patient data, server-side validation, and conflict prevention at the heart of the booking flow.",
+    title: { en: "Clinic Flow", ar: "نظام Clinic Flow" },
+    subtitle: {
+      en: "A secure workflow for patients, doctors, and admins.",
+      ar: "تجربة آمنة ومتكاملة للمرضى والأطباء والإدارة.",
+    },
+    description: {
+      en: "A role-aware clinic platform with six appointment states, protected patient data, server-side validation, and conflict prevention at the heart of the booking flow.",
+      ar: "منصة لإدارة العيادات تدعم ثلاثة أدوار وست حالات للمواعيد، مع حماية بيانات المرضى، والتحقق على الخادم، ومنع تعارض الحجوزات.",
+    },
+    role: {
+      en: "Co-developed the platform in a two-developer team. I worked on role-based workflows, appointment-state handling, double-booking prevention, patient-data authorization, and server-side validation.",
+      ar: "شاركت في تطوير المنصة ضمن فريق من مطورين، وعملت على تدفقات الصلاحيات، وحالات المواعيد، ومنع الحجز المزدوج، وحماية بيانات المرضى، والتحقق على الخادم.",
+    },
     href: "https://github.com/3ab3al11/Clinic_Flow",
+    image: "/project-clinic.png",
+    imageAlt: {
+      en: "Clinic Flow administration dashboard",
+      ar: "لوحة تحكم نظام Clinic Flow",
+    },
     tech: ["ASP.NET Core MVC", "C#", "EF Core", "SQLite"],
     stats: [
-      ["3", "user roles"],
-      ["10", "domain entities"],
-      ["67", "controller actions"],
+      ["3", { en: "user roles", ar: "أدوار مستخدمين" }],
+      ["10", { en: "domain entities", ar: "كيانات للنظام" }],
+      ["67", { en: "controller actions", ar: "إجراء Controller" }],
     ],
-    visual: "clinic",
   },
   {
     index: "03",
-    title: "Football Field Booking",
-    subtitle: "Concurrency-aware reservations that stay consistent.",
-    description:
-      "A two-role booking system with timed reservation holds, conflict detection, simulated payments, refunds, reminders, and security across every write action.",
+    title: {
+      en: "Football Field Booking",
+      ar: "نظام حجز ملاعب كرة القدم",
+    },
+    subtitle: {
+      en: "Concurrency-aware reservations that stay consistent.",
+      ar: "حجوزات تمنع التعارض وتحافظ على اتساق البيانات.",
+    },
+    description: {
+      en: "A two-role booking system with timed reservation holds, conflict detection, simulated payments, refunds, reminders, and security across every write action.",
+      ar: "نظام حجز بدورين يتضمن حجزًا مؤقتًا، واكتشاف التعارضات، وطرق دفع تجريبية، واسترداد الأموال، والتذكيرات، وحماية عمليات الكتابة.",
+    },
+    role: {
+      en: "Co-developed the system in a two-developer team. I implemented booking conflict controls, 10-minute reservation holds, payment and refund workflows, reminders, CSRF protection, and defined test cases.",
+      ar: "شاركت في تطوير النظام ضمن فريق من مطورين، ونفذت منع تعارض الحجوزات، والحجز المؤقت لمدة 10 دقائق، وتدفقات الدفع والاسترداد، والتذكيرات، وحماية CSRF، وحالات الاختبار.",
+    },
     href: "https://github.com/3ab3al11/Football-Field-Booking-System",
+    image: "/project-football.png",
+    imageAlt: {
+      en: "Football Field Booking dashboard presentation",
+      ar: "واجهة نظام حجز ملاعب كرة القدم",
+    },
     tech: ["ASP.NET Core MVC", "C#", "EF Core", "SQLite"],
     stats: [
-      ["10m", "reservation hold"],
-      ["53", "controller actions"],
-      ["24", "CSRF-safe posts"],
+      ["10m", { en: "reservation hold", ar: "حجز مؤقت" }],
+      ["53", { en: "controller actions", ar: "إجراء Controller" }],
+      ["24", { en: "CSRF-safe posts", ar: "عملية POST محمية" }],
     ],
-    visual: "booking",
   },
 ];
 
-const capabilities = [
+const capabilities: Array<{
+  number: string;
+  title: Localized;
+  text: Localized;
+}> = [
   {
     number: "01",
-    title: "Backend systems",
-    text: "Structured APIs and MVC applications built with clear boundaries, dependency injection, and maintainable business logic.",
+    title: { en: "Backend systems", ar: "أنظمة Backend" },
+    text: {
+      en: "Structured APIs and MVC applications built with clear boundaries, dependency injection, and maintainable business logic.",
+      ar: "تطبيقات API وMVC منظمة بحدود واضحة وDependency Injection ومنطق أعمال سهل الصيانة.",
+    },
   },
   {
     number: "02",
-    title: "Data & workflows",
-    text: "Reliable relational models, EF Core migrations, bulk imports, state machines, and transactional operations.",
+    title: { en: "Data & workflows", ar: "البيانات وتدفقات العمل" },
+    text: {
+      en: "Reliable relational models, EF Core migrations, bulk imports, state machines, and transactional operations.",
+      ar: "نماذج بيانات موثوقة، وEF Core Migrations، واستيراد جماعي، وحالات عمل، وعمليات Transactional.",
+    },
   },
   {
     number: "03",
-    title: "Security by design",
-    text: "Identity, RBAC, JWT, validation, CORS, file-safety checks, and authorization applied where the data lives.",
+    title: { en: "Security by design", ar: "الأمان من البداية" },
+    text: {
+      en: "Identity, RBAC, JWT, validation, CORS, file-safety checks, and authorization applied where the data lives.",
+      ar: "تطبيق Identity وRBAC وJWT والتحقق وCORS وأمان الملفات والصلاحيات في طبقات النظام الصحيحة.",
+    },
   },
 ];
 
@@ -82,110 +243,71 @@ const stack = [
   "Git",
 ];
 
-const experience = [
+const experience: Array<{
+  date: Localized;
+  role: Localized;
+  company: Localized;
+  copy: Localized;
+}> = [
   {
-    date: "JUL 2026 — NOW",
-    role: "Freelance ASP.NET Core Developer",
-    company: "Khamsat",
-    copy: "Diagnosed and resolved a production application issue for a paid client, earning a 5-star rating.",
+    date: { en: "JUL 2026 — NOW", ar: "يوليو 2026 — الآن" },
+    role: {
+      en: "Freelance ASP.NET Core Developer",
+      ar: "مطور ASP.NET Core مستقل",
+    },
+    company: { en: "Khamsat", ar: "خمسات" },
+    copy: {
+      en: "Diagnosed and resolved a production application issue for a paid client, earning a 5-star rating.",
+      ar: "شخّصت وحللت مشكلة في تطبيق لعميل مدفوع، وحصلت على تقييم خمس نجوم.",
+    },
   },
   {
-    date: "2025 — NOW",
-    role: "Social Media & Content Specialist",
-    company: "Sahab Real Estate",
-    copy: "Create campaign content, promotional assets, and coordinated publishing plans with the wider team.",
+    date: { en: "2025 — NOW", ar: "2025 — الآن" },
+    role: {
+      en: "Social Media & Content Specialist",
+      ar: "أخصائي محتوى وتواصل اجتماعي",
+    },
+    company: { en: "Sahab Real Estate", ar: "سحاب للتطوير العقاري" },
+    copy: {
+      en: "Create campaign content, promotional assets, and coordinated publishing plans with the wider team.",
+      ar: "أصمم محتوى الحملات والمواد الدعائية وخطط النشر بالتنسيق مع فريق العمل.",
+    },
   },
   {
-    date: "2022 — 2026",
-    role: "Student Union President",
-    company: "Assiut National University",
-    copy: "Led university-wide student teams after serving as Faculty Student Union President and earning institutional recognition.",
+    date: { en: "2022 — 2026", ar: "2022 — 2026" },
+    role: {
+      en: "Student Union President",
+      ar: "رئيس اتحاد طلاب الجامعة",
+    },
+    company: {
+      en: "Assiut National University",
+      ar: "جامعة أسيوط الأهلية",
+    },
+    copy: {
+      en: "Led university-wide student teams after serving as Faculty Student Union President and earning institutional recognition.",
+      ar: "قدت فرقًا طلابية على مستوى الجامعة بعد رئاسة اتحاد الكلية وتحقيق تقدير مؤسسي للأنشطة القيادية.",
+    },
   },
 ];
 
-function ProjectVisual({ type }: { type: string }) {
-  if (type === "admission") {
-    return (
-      <div className="project-visual admission-visual" aria-hidden="true">
-        <div className="visual-topline">
-          <span>ALLOCATION ENGINE</span>
-          <span>LIVE</span>
-        </div>
-        <div className="allocation-grid">
-          <div className="allocation-score">
-            <small>Candidate score</small>
-            <strong>94.8</strong>
-            <span>Eligible</span>
-          </div>
-          <div className="allocation-rules">
-            <span className="rule-pass">01 · Documents verified</span>
-            <span className="rule-pass">02 · Rules evaluated</span>
-            <span className="rule-pass">03 · Seat allocated</span>
-          </div>
-        </div>
-        <div className="visual-log">
-          <span>5,000 rows / batch</span>
-          <span>transaction committed</span>
-        </div>
-      </div>
-    );
-  }
-
-  if (type === "clinic") {
-    return (
-      <div className="project-visual clinic-visual" aria-hidden="true">
-        <div className="visual-topline">
-          <span>CLINIC FLOW</span>
-          <span>08:30</span>
-        </div>
-        <div className="clinic-columns">
-          <div>
-            <small>Doctor</small>
-            <strong>Available</strong>
-          </div>
-          <div className="appointment-line">
-            <span />
-            <span />
-            <span />
-            <span />
-            <span />
-            <span />
-          </div>
-          <div>
-            <small>Next patient</small>
-            <strong>09:00</strong>
-          </div>
-        </div>
-        <div className="clinic-safe">
-          <span>NO CONFLICTS</span>
-          <span>ROLE CHECKED</span>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="project-visual booking-visual" aria-hidden="true">
-      <div className="visual-topline">
-        <span>RESERVATION #041</span>
-        <span>HOLDING</span>
-      </div>
-      <div className="booking-clock">
-        <span>TIME REMAINING</span>
-        <strong>09:42</strong>
-      </div>
-      <div className="booking-track">
-        <span />
-      </div>
-      <div className="booking-meta">
-        <span>Conflict check: passed</span>
-        <span>Payment: pending</span>
-      </div>
-    </div>
-  );
-}
-
 export default function Home() {
+  const [lang, setLang] = useState<Lang>("en");
+  const t = copy[lang];
+  const localize = (value: Localized) => value[lang];
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem("portfolio-language");
+    if (saved === "ar" || saved === "en") {
+      setLang(saved);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+    window.localStorage.setItem("portfolio-language", lang);
+  }, [lang]);
+
   useEffect(() => {
     const root = document.documentElement;
     let frame = 0;
@@ -217,7 +339,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main>
+    <main className={lang === "ar" ? "arabic-site" : "english-site"}>
       <div className="scroll-progress" aria-hidden="true" />
       <div className="pointer-glow" aria-hidden="true" />
 
@@ -226,15 +348,29 @@ export default function Home() {
           A<span>.</span>A
         </a>
         <nav aria-label="Main navigation">
-          <a href="#about">About</a>
-          <a href="#work">Projects</a>
-          <a href="#experience">Experience</a>
-          <a href="#contact">Contact</a>
+          <a href="#about">{t.about}</a>
+          <a href="#work">{t.projects}</a>
+          <a href="#experience">{t.experience}</a>
+          <a href="#contact">{t.contact}</a>
         </nav>
-        <a className="header-availability" href="mailto:ahmed.moh.abdelaal.dev@gmail.com">
-          <span />
-          Available for work
-        </a>
+        <div className="header-actions">
+          <button
+            className="language-toggle"
+            type="button"
+            onClick={() => setLang(lang === "en" ? "ar" : "en")}
+            aria-label={t.switchLabel}
+          >
+            <span>{lang === "en" ? "AR" : "EN"}</span>
+            <i aria-hidden="true">↔</i>
+          </button>
+          <a
+            className="header-availability"
+            href="mailto:ahmed.moh.abdelaal.dev@gmail.com"
+          >
+            <span />
+            {t.available}
+          </a>
+        </div>
       </header>
 
       <section className="hero" id="top">
@@ -247,93 +383,70 @@ export default function Home() {
         </div>
 
         <div className="hero-kicker">
-          <span>Cairo, Egypt</span>
+          <span>{t.cairo}</span>
           <span className="kicker-line" />
-          <span>Backend .NET Developer</span>
+          <span>{t.role}</span>
         </div>
 
         <div className="hero-copy">
-          <p className="eyebrow">I design the logic behind reliable products.</p>
-          <h1>
-            AHMED
-            <span>ABD ELAAL</span>
+          <p className="eyebrow">{t.eyebrow}</p>
+          <h1 className={lang === "ar" ? "arabic-name" : ""}>
+            {t.firstName}
+            <span>{t.lastName}</span>
           </h1>
           <div className="hero-bottom">
-            <p>
-              Building secure, testable backend systems with C#, ASP.NET Core,
-              EF Core, and SQL Server.
-            </p>
+            <p>{t.heroBody}</p>
             <div className="hero-actions">
               <a className="button button-primary" href="#work">
-                Explore projects <span>↘</span>
+                {t.explore} <span>↘</span>
               </a>
               <a
                 className="button button-ghost"
                 href="/Ahmed_Mohamed_AbdelAal_CV.pdf"
                 download
               >
-                Download CV
+                {t.download}
               </a>
             </div>
           </div>
         </div>
 
-        <div className="hero-console" aria-hidden="true">
-          <div className="console-bar">
-            <span />
-            <span />
-            <span />
-            <small>system.status</small>
-          </div>
-          <pre>
-            <code>
-              <span className="code-muted">{"// current focus"}</span>
-              {"\n"}services.AddScoped&lt;
-              <span className="code-accent">IReliableSystem</span>
-              &gt;();{"\n\n"}
-              <span className="code-muted">{"// result"}</span>
-              {"\n"}
-              <span className="code-success">✓</span> secure
-              {"\n"}
-              <span className="code-success">✓</span> testable
-              {"\n"}
-              <span className="code-success">✓</span> maintainable
-            </code>
-          </pre>
-        </div>
+        <figure className="hero-portrait">
+          <img src="/ahmed-portrait.jpg" alt={t.portraitAlt} />
+          <figcaption>
+            <span>{t.portraitNote}</span>
+            <strong>AHMED ABD ELAAL</strong>
+          </figcaption>
+        </figure>
 
         <a className="scroll-cue" href="#about">
-          SCROLL TO DISCOVER <span>↓</span>
+          {t.scroll} <span>↓</span>
         </a>
       </section>
 
       <section className="manifesto" id="about">
         <div className="section-label reveal">
           <span>01</span>
-          <span>About</span>
+          <span>{t.aboutLabel}</span>
         </div>
         <div className="manifesto-copy reveal">
-          <p className="manifesto-small">MORE THAN ENDPOINTS.</p>
+          <p className="manifesto-small">{t.moreThan}</p>
           <h2>
-            I turn business rules into{" "}
-            <span className="text-outline">systems people can trust.</span>
+            {t.manifestoLead}{" "}
+            <span className="text-outline">{t.manifestoOutline}</span>
           </h2>
           <div className="manifesto-detail">
-            <p>
-              Computer Science and Artificial Intelligence graduate focused on
-              backend .NET development. I care about the parts users never see:
-              data integrity, authorization, predictable workflows, and code
-              the next developer can understand.
-            </p>
+            <p>{t.bio}</p>
             <div className="manifesto-facts">
               <span>
-                <strong>2026</strong> B.Sc. Graduate
+                <strong>2026</strong> {t.graduate}
               </span>
               <span>
-                <strong>3.16</strong> GPA
+                <strong>3.16</strong> {t.gpa}
               </span>
               <span>
-                <strong>Arabic</strong> Native · English Professional
+                <strong>{lang === "ar" ? "العربية" : "Arabic"}</strong>{" "}
+                {t.language}
               </span>
             </div>
           </div>
@@ -350,8 +463,8 @@ export default function Home() {
                 <span />
                 <span />
               </div>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
+              <h3>{localize(item.title)}</h3>
+              <p>{localize(item.text)}</p>
             </article>
           ))}
         </div>
@@ -361,11 +474,11 @@ export default function Home() {
         <div className="section-heading reveal">
           <div className="section-label">
             <span>02</span>
-            <span>Selected projects</span>
+            <span>{t.selected}</span>
           </div>
           <h2>
-            SYSTEMS BUILT
-            <span>TO HOLD UP.</span>
+            {t.systemsBuilt}
+            <span>{t.toHoldUp}</span>
           </h2>
         </div>
 
@@ -374,25 +487,43 @@ export default function Home() {
             <article className="project-card reveal" key={project.index}>
               <div className="project-copy">
                 <div className="project-index">{project.index}</div>
-                <p className="project-subtitle">{project.subtitle}</p>
-                <h3>{project.title}</h3>
-                <p className="project-description">{project.description}</p>
+                <p className="project-subtitle">
+                  {localize(project.subtitle)}
+                </p>
+                <h3>{localize(project.title)}</h3>
+                <p className="project-description">
+                  {localize(project.description)}
+                </p>
+                <div className="project-role">
+                  <span>{t.myRole}</span>
+                  <p>{localize(project.role)}</p>
+                </div>
                 <div className="tech-list">
                   {project.tech.map((tech) => (
                     <span key={tech}>{tech}</span>
                   ))}
                 </div>
                 <a href={project.href} target="_blank" rel="noreferrer">
-                  View repository <span>↗</span>
+                  {t.viewRepo} <span>↗</span>
                 </a>
               </div>
               <div className="project-showcase">
-                <ProjectVisual type={project.visual} />
+                <figure className="project-image-wrap">
+                  <img
+                    src={project.image}
+                    alt={localize(project.imageAlt)}
+                    loading="lazy"
+                  />
+                  <figcaption>
+                    <span>{localize(project.title)}</span>
+                    <span>ASP.NET CORE</span>
+                  </figcaption>
+                </figure>
                 <div className="project-stats">
                   {project.stats.map(([value, label]) => (
-                    <div key={label}>
+                    <div key={label.en}>
                       <strong>{value}</strong>
-                      <span>{label}</span>
+                      <span>{localize(label)}</span>
                     </div>
                   ))}
                 </div>
@@ -416,24 +547,28 @@ export default function Home() {
         <div className="section-heading reveal">
           <div className="section-label">
             <span>03</span>
-            <span>Experience</span>
+            <span>{t.experienceLabel}</span>
           </div>
           <h2>
-            CODE, CONTENT
-            <span>& LEADERSHIP.</span>
+            {t.codeContent}
+            <span>{t.leadership}</span>
           </h2>
         </div>
 
         <div className="experience-layout">
           <div className="timeline">
             {experience.map((item, index) => (
-              <article className="timeline-item reveal" key={item.role}>
-                <span className="timeline-dot">{String(index + 1).padStart(2, "0")}</span>
-                <p className="timeline-date">{item.date}</p>
+              <article className="timeline-item reveal" key={item.role.en}>
+                <span className="timeline-dot">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <p className="timeline-date">{localize(item.date)}</p>
                 <div>
-                  <h3>{item.role}</h3>
-                  <p className="timeline-company">{item.company}</p>
-                  <p className="timeline-copy">{item.copy}</p>
+                  <h3>{localize(item.role)}</h3>
+                  <p className="timeline-company">
+                    {localize(item.company)}
+                  </p>
+                  <p className="timeline-copy">{localize(item.copy)}</p>
                 </div>
               </article>
             ))}
@@ -441,13 +576,20 @@ export default function Home() {
 
           <aside className="education-card reveal">
             <span className="education-mark">B.Sc.</span>
-            <p>Computer Science & Artificial Intelligence</p>
-            <h3>Assiut National University</h3>
+            <p>{t.education}</p>
+            <h3>
+              {lang === "ar"
+                ? "جامعة أسيوط الأهلية"
+                : "Assiut National University"}
+            </h3>
             <div>
-              <span>Graduated 2026</span>
-              <span>GPA 3.16</span>
+              <span>{t.graduated}</span>
+              <span>{t.gpa} 3.16</span>
             </div>
-            <small>Back-End .NET — Eraa Soft · PHP & WordPress — ITI · Front-End — ITI</small>
+            <small>
+              Back-End .NET — Eraa Soft · PHP & WordPress — ITI · Front-End —
+              ITI
+            </small>
           </aside>
         </div>
       </section>
@@ -456,23 +598,23 @@ export default function Home() {
         <div className="contact-orb" aria-hidden="true" />
         <div className="section-label reveal">
           <span>04</span>
-          <span>Contact</span>
+          <span>{t.contactLabel}</span>
         </div>
         <div className="contact-copy reveal">
-          <p>Have a backend problem worth solving?</p>
+          <p>{t.contactIntro}</p>
           <h2>
-            LET&apos;S BUILD
-            <span>SOMETHING SOLID.</span>
+            {t.letsBuild}
+            <span>{t.somethingSolid}</span>
           </h2>
           <a
-            className="contact-mail"
+            className="contact-mail ltr"
             href="mailto:ahmed.moh.abdelaal.dev@gmail.com"
           >
             ahmed.moh.abdelaal.dev@gmail.com <span>↗</span>
           </a>
         </div>
         <div className="contact-footer">
-          <div className="social-links">
+          <div className="social-links ltr">
             <a href="https://github.com/3ab3al11" target="_blank" rel="noreferrer">
               GitHub ↗
             </a>
@@ -486,7 +628,7 @@ export default function Home() {
             <a href="tel:+201021470391">+20 102 147 0391</a>
           </div>
           <p>© {new Date().getFullYear()} Ahmed Mohamed Abd Elaal</p>
-          <a href="#top">Back to top ↑</a>
+          <a href="#top">{t.backToTop} ↑</a>
         </div>
       </section>
     </main>

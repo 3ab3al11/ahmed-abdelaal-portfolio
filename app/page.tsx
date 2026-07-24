@@ -1,6 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 
 type Lang = "en" | "ar";
 type Localized = { en: string; ar: string };
@@ -300,10 +305,91 @@ const experience: Array<{
   },
 ];
 
+function AnimatedStat({ value }: { value: string }) {
+  const [displayValue, setDisplayValue] = useState("0");
+  const elementRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const match = value.match(/^(\d+)(.*)$/);
+    if (!match) {
+      setDisplayValue(value);
+      return;
+    }
+
+    const target = Number(match[1]);
+    const suffix = match[2];
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (prefersReducedMotion) {
+      setDisplayValue(value);
+      return;
+    }
+
+    let animationFrame = 0;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+
+        const startedAt = performance.now();
+        const duration = 900;
+
+        const update = (now: number) => {
+          const progress = Math.min((now - startedAt) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          setDisplayValue(`${Math.round(target * eased)}${suffix}`);
+
+          if (progress < 1) {
+            animationFrame = requestAnimationFrame(update);
+          }
+        };
+
+        animationFrame = requestAnimationFrame(update);
+        observer.disconnect();
+      },
+      { threshold: 0.65 },
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(animationFrame);
+    };
+  }, [value]);
+
+  return (
+    <strong ref={elementRef} aria-label={value}>
+      {displayValue}
+    </strong>
+  );
+}
+
 export default function Home() {
   const [lang, setLang] = useState<Lang>("en");
+  const [introVisible, setIntroVisible] = useState(true);
+  const [languageTransitioning, setLanguageTransitioning] = useState(false);
+  const languageTimer = useRef<number | null>(null);
   const t = copy[lang];
   const localize = (value: Localized) => value[lang];
+
+  useEffect(() => {
+    const introWasSeen =
+      window.sessionStorage.getItem("portfolio-intro-seen") === "true";
+
+    if (introWasSeen) {
+      setIntroVisible(false);
+      return;
+    }
+
+    window.sessionStorage.setItem("portfolio-intro-seen", "true");
+    const timer = window.setTimeout(() => setIntroVisible(false), 1250);
+
+    return () => window.clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const saved = window.localStorage.getItem("portfolio-language");
@@ -327,6 +413,18 @@ export default function Home() {
       frame = requestAnimationFrame(() => {
         root.style.setProperty("--pointer-x", `${event.clientX}px`);
         root.style.setProperty("--pointer-y", `${event.clientY}px`);
+
+        if (
+          window.matchMedia("(pointer: fine)").matches &&
+          !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+          const x = event.clientX / window.innerWidth - 0.5;
+          const y = event.clientY / window.innerHeight - 0.5;
+          root.style.setProperty("--parallax-x", `${x * 14}px`);
+          root.style.setProperty("--parallax-y", `${y * 10}px`);
+          root.style.setProperty("--parallax-soft-x", `${x * -8}px`);
+          root.style.setProperty("--parallax-soft-y", `${y * -6}px`);
+        }
       });
     };
 
@@ -348,17 +446,63 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(
+    () => () => {
+      if (languageTimer.current !== null) {
+        window.clearTimeout(languageTimer.current);
+      }
+    },
+    [],
+  );
+
+  const switchLanguage = () => {
+    if (languageTransitioning) return;
+
+    const nextLanguage: Lang = lang === "en" ? "ar" : "en";
+    setLanguageTransitioning(true);
+    languageTimer.current = window.setTimeout(() => {
+      setLang(nextLanguage);
+      requestAnimationFrame(() => setLanguageTransitioning(false));
+    }, 170);
+  };
+
+  const moveMagnet = (event: ReactPointerEvent<HTMLAnchorElement>) => {
+    if (
+      !window.matchMedia("(pointer: fine)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - rect.left - rect.width / 2) * 0.14;
+    const y = (event.clientY - rect.top - rect.height / 2) * 0.2;
+    event.currentTarget.style.setProperty("--magnet-x", `${x}px`);
+    event.currentTarget.style.setProperty("--magnet-y", `${y}px`);
+  };
+
+  const resetMagnet = (event: ReactPointerEvent<HTMLAnchorElement>) => {
+    event.currentTarget.style.setProperty("--magnet-x", "0px");
+    event.currentTarget.style.setProperty("--magnet-y", "0px");
+  };
+
   return (
-    <main className={lang === "ar" ? "arabic-site" : "english-site"}>
-      <div className="site-intro" aria-hidden="true">
-        <span>PORTFOLIO · 2026</span>
-        <strong>
-          Ahmed Mohamed <i>Abd ElAal</i>
-        </strong>
-        <div>
-          <span />
+    <main
+      className={`${lang === "ar" ? "arabic-site" : "english-site"}${
+        languageTransitioning ? " language-transitioning" : ""
+      }`}
+    >
+      {introVisible && (
+        <div className="site-intro" aria-hidden="true">
+          <span>PORTFOLIO · 2026</span>
+          <strong>
+            Ahmed Mohamed <i>Abd ElAal</i>
+          </strong>
+          <div>
+            <span />
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="scroll-progress" aria-hidden="true" />
       <div className="pointer-glow" aria-hidden="true" />
@@ -377,7 +521,7 @@ export default function Home() {
           <button
             className="language-toggle"
             type="button"
-            onClick={() => setLang(lang === "en" ? "ar" : "en")}
+            onClick={switchLanguage}
             aria-label={t.switchLabel}
           >
             <span>{lang === "en" ? "AR" : "EN"}</span>
@@ -417,13 +561,20 @@ export default function Home() {
           <div className="hero-bottom">
             <p>{t.heroBody}</p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#work">
+              <a
+                className="button button-primary magnetic"
+                href="#work"
+                onPointerMove={moveMagnet}
+                onPointerLeave={resetMagnet}
+              >
                 {t.explore} <span>↘</span>
               </a>
               <a
-                className="button button-ghost"
+                className="button button-ghost magnetic"
                 href="/Ahmed_Mohamed_AbdelAal_CV.pdf"
                 download
+                onPointerMove={moveMagnet}
+                onPointerLeave={resetMagnet}
               >
                 {t.download}
               </a>
@@ -503,8 +654,12 @@ export default function Home() {
         </div>
 
         <div className="projects-list">
-          {projects.map((project) => (
-            <article className="project-card reveal" key={project.index}>
+          {projects.map((project, index) => (
+            <article
+              className="project-card reveal"
+              key={project.index}
+              style={{ zIndex: index + 1 }}
+            >
               <div className="project-copy">
                 <div className="project-index">{project.index}</div>
                 <p className="project-subtitle">
@@ -542,7 +697,7 @@ export default function Home() {
                 <div className="project-stats">
                   {project.stats.map(([value, label]) => (
                     <div key={label.en}>
-                      <strong>{value}</strong>
+                      <AnimatedStat value={value} />
                       <span>{localize(label)}</span>
                     </div>
                   ))}

@@ -377,7 +377,7 @@ export default function Home() {
   const localize = (value: Localized) => value[lang];
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setIntroVisible(false), 2050);
+    const timer = window.setTimeout(() => setIntroVisible(false), 3400);
 
     return () => window.clearTimeout(timer);
   }, []);

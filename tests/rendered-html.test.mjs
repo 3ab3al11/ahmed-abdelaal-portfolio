@@ -38,7 +38,7 @@ test("server-renders Ahmed's production portfolio", async () => {
   assert.match(html, /University Admission System/);
   assert.match(html, /Clinic Flow/);
   assert.match(html, /Football Field Booking/);
-  assert.match(html, /Code · Content/);
+  assert.match(html, /Backend · Freelance/);
   assert.match(html, /href="https:\/\/github\.com\/3ab3al11"/);
   assert.match(
     html,
@@ -57,6 +57,10 @@ test("server-renders Ahmed's production portfolio", async () => {
   assert.match(html, /href="\/Ahmed_Mohamed_AbdelAal_CV\.pdf"/);
   assert.doesNotMatch(html, /id="contact"|href="#contact"/);
   assert.match(html, /class="site-footer"/);
+  assert.match(html, /Arabic — Native · English — Good working proficiency/);
+  assert.match(html, /aria-label="5K"/);
+  assert.match(html, /Best Faculty Student Union in Assiut/);
+  assert.doesNotMatch(html, /Social Media &amp; Content Specialist|Sahab Real Estate/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
 });
 

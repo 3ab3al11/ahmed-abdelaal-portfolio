@@ -48,14 +48,14 @@ const copy = {
     bio: "I’m a Backend .NET Developer and Computer Science & Artificial Intelligence graduate focused on building secure, maintainable systems. My goal is to join a global technology company where I can contribute to real products, learn from high-performing teams, and grow into a world-class backend engineer.",
     graduate: "B.Sc. Graduate",
     gpa: "GPA",
-    language: "Native · English working proficiency",
+    language: "Arabic — Native · English — Good working proficiency",
     selected: "Selected projects",
     systemsBuilt: "Systems built",
     toHoldUp: "to hold up.",
     myRole: "My role",
     viewRepo: "View repository",
     experienceLabel: "Experience",
-    codeContent: "Code · Content",
+    codeContent: "Backend · Freelance",
     leadership: "& leadership.",
     testimonialLabel: "Verified client review",
     testimonialQuote:
@@ -98,14 +98,14 @@ const copy = {
     bio: "أنا مطور Backend .NET وخريج علوم الحاسب والذكاء الاصطناعي، أركز على بناء أنظمة آمنة وقابلة للتطوير والصيانة. هدفي الانضمام إلى شركة تقنية عالمية أساهم فيها في تطوير منتجات حقيقية، وأتعلم من فرق قوية، وأتطور إلى مهندس Backend على مستوى عالمي.",
     graduate: "بكالوريوس 2026",
     gpa: "التقدير التراكمي",
-    language: "لغة أم · الإنجليزية جيدة",
+    language: "العربية — لغة أم · الإنجليزية — مستوى عملي جيد",
     selected: "أبرز المشاريع",
     systemsBuilt: "أنظمة صُممت",
     toHoldUp: "لتعمل بثبات.",
     myRole: "دوري في المشروع",
     viewRepo: "عرض المشروع على GitHub",
     experienceLabel: "الخبرات",
-    codeContent: "برمجة · محتوى",
+    codeContent: "Backend · عمل حر",
     leadership: "وقيادة.",
     testimonialLabel: "تقييم عميل موثّق",
     testimonialQuote:
@@ -144,8 +144,8 @@ const projects: Array<{
       ar: "منصة قبول ثنائية اللغة مبنية لقرارات توزيع دقيقة.",
     },
     description: {
-      en: "A rule-driven ASP.NET Core MVC platform that handles applications, document safety, allocation, and high-volume Excel imports without sacrificing traceability.",
-      ar: "منصة مبنية بـASP.NET Core MVC لإدارة طلبات التقديم، والتحقق الآمن من الملفات، والتوزيع القائم على قواعد ثابتة، واستيراد بيانات Excel بأحجام كبيرة.",
+      en: "A rule-driven ASP.NET Core MVC platform that handles applications, document safety, allocation, and Excel imports of up to 5,000 records without sacrificing traceability.",
+      ar: "منصة مبنية بـASP.NET Core MVC لإدارة طلبات التقديم، والتحقق الآمن من الملفات، والتوزيع القائم على قواعد ثابتة، واستيراد ما يصل إلى 5,000 سجل من Excel مع الحفاظ على إمكانية التتبع.",
     },
     role: {
       en: "Co-engineered the system in a two-developer team. I contributed to the deterministic allocation workflow, file-safety validation, transactional Excel bulk importer, and the automated xUnit test suite.",
@@ -159,7 +159,7 @@ const projects: Array<{
     },
     tech: ["ASP.NET Core MVC", "EF Core", "SQL Server", "xUnit"],
     stats: [
-      ["15", { en: "SQL tables", ar: "جدول SQL" }],
+      ["5K", { en: "Excel records per import", ar: "سجل Excel لكل استيراد" }],
       ["56", { en: "controller actions", ar: "إجراء Controller" }],
       ["129", { en: "automated tests", ar: "اختبار آلي" }],
     ],
@@ -267,6 +267,14 @@ const stack = [
   "JWT",
   "Dapper",
   "SignalR",
+  "LINQ",
+  "Async/Await",
+  "ADO.NET",
+  "T-SQL",
+  "N-Tier Architecture",
+  "SOLID",
+  "Swagger",
+  "Postman",
   "Git",
 ];
 
@@ -312,18 +320,6 @@ const experience: Array<{
     },
   },
   {
-    date: { en: "2025 — NOW", ar: "2025 — الآن" },
-    role: {
-      en: "Social Media & Content Specialist",
-      ar: "أخصائي محتوى وتواصل اجتماعي",
-    },
-    company: { en: "Sahab Real Estate", ar: "سحاب للتطوير العقاري" },
-    copy: {
-      en: "Develop campaign content, promotional assets, and coordinated publishing plans in collaboration with the wider team.",
-      ar: "أصمم محتوى الحملات والمواد الدعائية وخطط النشر بالتنسيق مع فريق العمل.",
-    },
-  },
-  {
     date: { en: "2022 — 2026", ar: "2022 — 2026" },
     role: {
       en: "Student Union President",
@@ -334,8 +330,8 @@ const experience: Array<{
       ar: "جامعة أسيوط الأهلية",
     },
     copy: {
-      en: "Led university-wide student teams after serving as Faculty Student Union President and earning institutional recognition.",
-      ar: "قدت فرقًا طلابية على مستوى الجامعة بعد رئاسة اتحاد الكلية وتحقيق تقدير مؤسسي للأنشطة القيادية.",
+      en: "Led university-wide student teams after serving as Faculty Student Union President (2022–2023), where the union was recognized as the Best Faculty Student Union in Assiut.",
+      ar: "قدت فرقًا طلابية على مستوى الجامعة بعد رئاسة اتحاد طلاب الكلية (2022–2023)، حيث حصل الاتحاد على لقب أفضل اتحاد طلاب كلية في أسيوط.",
     },
   },
 ];

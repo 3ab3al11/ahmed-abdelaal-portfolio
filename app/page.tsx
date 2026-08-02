@@ -6,6 +6,12 @@ import {
   useState,
   type PointerEvent as ReactPointerEvent,
 } from "react";
+import {
+  FaFacebookF,
+  FaGithub,
+  FaInstagram,
+  FaLinkedinIn,
+} from "react-icons/fa";
 
 type Lang = "en" | "ar";
 type Localized = { en: string; ar: string };
@@ -32,6 +38,7 @@ const copy = {
     homeLabel: "Ahmed Mohamed Abd ElAal, home",
     navigationLabel: "Main navigation",
     stackLabel: "Technology stack",
+    socialLabel: "Social media links",
     starsLabel: "5 out of 5 stars",
     aboutLabel: "About",
     moreThan: "MORE THAN ENDPOINTS.",
@@ -86,6 +93,7 @@ const copy = {
     homeLabel: "أحمد محمد عبدالعال، الصفحة الرئيسية",
     navigationLabel: "التنقل الرئيسي",
     stackLabel: "التقنيات المستخدمة",
+    socialLabel: "روابط التواصل الاجتماعي",
     starsLabel: "خمس نجوم من خمس",
     aboutLabel: "نبذة عني",
     moreThan: "أكثر من مجرد API.",
@@ -269,6 +277,29 @@ const stack = [
   "SignalR",
   "Git",
 ];
+
+const socialLinks = [
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/ahmed-mohamed-web-dev/",
+    Icon: FaLinkedinIn,
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/3ab3al11",
+    Icon: FaGithub,
+  },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/3ab3al10/",
+    Icon: FaFacebookF,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/iahmed3ab3al",
+    Icon: FaInstagram,
+  },
+] as const;
 
 const experience: Array<{
   date: Localized;
@@ -837,18 +868,19 @@ export default function Home() {
           </a>
         </div>
         <div className="contact-footer">
-          <div className="social-links ltr">
-            <a href="https://github.com/3ab3al11" target="_blank" rel="noreferrer">
-              GitHub ↗
-            </a>
-            <a
-              href="https://linkedin.com/in/ahmed-mohamed-web-dev"
-              target="_blank"
-              rel="noreferrer"
-            >
-              LinkedIn ↗
-            </a>
-            <a href="tel:+201021470391">+201021470391</a>
+          <div className="social-links ltr" aria-label={t.socialLabel}>
+            {socialLinks.map(({ label, href, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={label}
+                title={label}
+              >
+                <Icon aria-hidden="true" focusable="false" />
+              </a>
+            ))}
           </div>
           <p>© {new Date().getFullYear()} Ahmed Mohamed Abd ElAal</p>
           <a href="#top">{t.backToTop} ↑</a>

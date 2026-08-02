@@ -39,6 +39,16 @@ test("server-renders Ahmed's production portfolio", async () => {
   assert.match(html, /Clinic Flow/);
   assert.match(html, /Football Field Booking/);
   assert.match(html, /Code · Content/);
+  assert.match(html, /href="https:\/\/github\.com\/3ab3al11"/);
+  assert.match(
+    html,
+    /href="https:\/\/www\.linkedin\.com\/in\/ahmed-mohamed-web-dev\/"/,
+  );
+  assert.match(html, /href="https:\/\/www\.facebook\.com\/3ab3al10\/"/);
+  assert.match(
+    html,
+    /href="https:\/\/www\.instagram\.com\/iahmed3ab3al"/,
+  );
   assert.match(html, /href="tel:\+201021470391"/);
   assert.match(html, /href="\/Ahmed_Mohamed_AbdelAal_CV\.pdf"/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);

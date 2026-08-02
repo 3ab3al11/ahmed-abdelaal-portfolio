@@ -23,7 +23,6 @@ const copy = {
     about: "About",
     projects: "Projects",
     experience: "Experience",
-    contact: "Contact",
     available: "Available for work",
     cairo: "Cairo, Egypt",
     role: "Backend .NET Developer",
@@ -67,10 +66,6 @@ const copy = {
     graduated: "Graduated 2026",
     training:
       "Training: Back-End .NET — Eraa Soft · PHP & WordPress — ITI · Front-End Development — ITI",
-    contactLabel: "Contact",
-    contactIntro: "Have a backend problem worth solving?",
-    letsBuild: "Let’s build",
-    somethingSolid: "something solid.",
     backToTop: "Back to top",
     switchLabel: "عرض الموقع بالعربية",
   },
@@ -78,7 +73,6 @@ const copy = {
     about: "نبذة عني",
     projects: "المشاريع",
     experience: "الخبرات",
-    contact: "تواصل معي",
     available: "متاح لفرص العمل",
     cairo: "القاهرة، مصر",
     role: "مطور Backend .NET",
@@ -122,10 +116,6 @@ const copy = {
     graduated: "تخرجت عام 2026",
     training:
       "التدريب: Back-End .NET — Eraa Soft · PHP وWordPress — ITI · Front-End Development — ITI",
-    contactLabel: "تواصل معي",
-    contactIntro: "هل لديك تحدٍ تقني يستحق الحل؟",
-    letsBuild: "لنبنِ",
-    somethingSolid: "شيئًا قويًا.",
     backToTop: "العودة للأعلى",
     switchLabel: "View site in English",
   },
@@ -551,7 +541,6 @@ export default function Home() {
           <a href="#about">{t.about}</a>
           <a href="#work">{t.projects}</a>
           <a href="#experience">{t.experience}</a>
-          <a href="#contact">{t.contact}</a>
         </nav>
         <div className="header-actions">
           <button
@@ -877,34 +866,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="contact" id="contact">
-        <div className="contact-orb" aria-hidden="true" />
-        <div className="section-label reveal">
-          <span>04</span>
-          <span>{t.contactLabel}</span>
-        </div>
-        <div className="contact-copy reveal">
-          <p>{t.contactIntro}</p>
-          <h2>
-            {t.letsBuild}
-            <span>{t.somethingSolid}</span>
-          </h2>
-          <a
-            className="contact-mail ltr"
-            href="mailto:ahmed.moh.abdelaal.dev@gmail.com"
-          >
-            ahmed.moh.abdelaal.dev@gmail.com <span>↗</span>
-          </a>
-          <a className="contact-phone ltr" href="tel:+201021470391">
-            +201021470391 <span>↗</span>
-          </a>
-        </div>
-        <div className="contact-footer">
-          <p>© {new Date().getFullYear()} Ahmed Mohamed Abd ElAal</p>
-          <a href="#top">{t.backToTop} ↑</a>
-        </div>
-      </section>
       </main>
+      <footer className="site-footer">
+        <p>© {new Date().getFullYear()} Ahmed Mohamed Abd ElAal</p>
+        <a href="#top">{t.backToTop} ↑</a>
+      </footer>
     </>
   );
 }

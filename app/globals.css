@@ -687,8 +687,7 @@ section[id] {
 
 .manifesto,
 .work,
-.experience,
-.contact {
+.experience {
   position: relative;
   padding: clamp(6rem, 11vw, 11rem) 4vw;
 }
@@ -722,8 +721,7 @@ section[id] {
 }
 
 .manifesto h2,
-.section-heading h2,
-.contact h2 {
+.section-heading h2 {
   margin: 0;
   font-size: clamp(3.2rem, 7.7vw, 8.2rem);
   font-weight: 700;
@@ -733,8 +731,7 @@ section[id] {
 }
 
 .text-outline,
-.section-heading h2 span,
-.contact h2 span {
+.section-heading h2 span {
   display: block;
   color: transparent;
   -webkit-text-stroke: 1px rgba(238, 241, 232, 0.58);
@@ -1740,113 +1737,14 @@ section[id] {
   line-height: 1.5;
 }
 
-.contact {
-  min-height: 88svh;
-  overflow: hidden;
-  border-top: 1px solid var(--line);
-  background:
-    radial-gradient(circle at 70% 30%, rgba(201, 255, 99, 0.1), transparent 35%),
-    #050605;
-}
-
-.contact-orb {
-  position: absolute;
-  right: -10vw;
-  bottom: -26vw;
-  width: 60vw;
-  height: 60vw;
-  border: 1px solid rgba(238, 241, 232, 0.1);
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 4vw rgba(238, 241, 232, 0.015),
-    0 0 0 8vw rgba(238, 241, 232, 0.01);
-}
-
-.contact-orb::after {
-  content: "";
-  position: absolute;
-  top: 12%;
-  left: 10%;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--lime);
-  box-shadow: 0 0 30px rgba(201, 255, 99, 0.7);
-}
-
-.contact-copy {
-  position: relative;
-  z-index: 1;
-  margin: 9vh 0 0 18vw;
-}
-
-.contact-copy > p {
-  margin: 0 0 1.4rem;
-  color: var(--lime);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 0.67rem;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-}
-
-.contact h2 {
-  font-size: clamp(4rem, 9.5vw, 9.7rem);
-}
-
-.contact-mail {
-  display: flex;
-  width: max-content;
-  max-width: 100%;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 3.5rem;
-  padding-bottom: 0.55rem;
-  border-bottom: 1px solid rgba(238, 241, 232, 0.35);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: clamp(0.66rem, 1.2vw, 0.96rem);
-}
-
-.contact-mail span {
-  color: var(--lime);
-}
-
-.contact-phone {
-  display: flex;
-  width: max-content;
-  max-width: 100%;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 0.9rem;
-  padding-bottom: 0.55rem;
-  border-bottom: 1px solid rgba(238, 241, 232, 0.22);
-  color: var(--paper-muted);
-  font-family: var(--font-geist-mono), monospace;
-  font-size: clamp(0.72rem, 1.25vw, 1rem);
-  transition:
-    color 180ms ease,
-    border-color 180ms ease;
-}
-
-.contact-phone span {
-  color: var(--lime);
-}
-
-.contact-phone:hover {
-  color: var(--paper);
-  border-color: var(--lime);
-}
-
-.contact-footer {
-  position: absolute;
-  z-index: 2;
-  right: 4vw;
-  bottom: 2rem;
-  left: 4vw;
+.site-footer {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
-  padding-top: 1.5rem;
+  gap: 1.5rem;
+  padding: 1.5rem 4vw 2rem;
   border-top: 1px solid var(--line);
+  background: #050605;
   color: var(--paper-muted);
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.58rem;
@@ -1882,15 +1780,12 @@ section[id] {
   height: 1.05rem;
 }
 
-.contact-footer > p {
+.site-footer > p {
   margin: 0;
 }
 
-.contact-footer > a {
+.site-footer > a {
   justify-self: end;
-}
-
-.contact-footer > a {
   transition: color 180ms ease;
 }
 
@@ -1930,8 +1825,7 @@ section[id] {
 }
 
 .arabic-site .manifesto h2,
-.arabic-site .section-heading h2,
-.arabic-site .contact h2 {
+.arabic-site .section-heading h2 {
   line-height: 1.02;
   letter-spacing: -0.045em;
 }
@@ -1945,12 +1839,7 @@ section[id] {
   transform: rotate(-90deg);
 }
 
-.arabic-site .contact-copy {
-  margin-right: 18vw;
-  margin-left: 0;
-}
-
-.contact-footer > a:hover {
+.site-footer > a:hover {
   color: var(--lime);
 }
 
@@ -2319,10 +2208,6 @@ section[id] {
     padding-right: 0;
   }
 
-  .arabic-site .contact-copy {
-    margin-right: 0;
-  }
-
   .orbit-one {
     right: -45vw;
     bottom: -8vw;
@@ -2345,8 +2230,7 @@ section[id] {
 
   .manifesto,
   .work,
-  .experience,
-  .contact {
+  .experience {
     padding-inline: 5vw;
   }
 
@@ -2356,8 +2240,7 @@ section[id] {
   }
 
   .manifesto h2,
-  .section-heading h2,
-  .contact h2 {
+  .section-heading h2 {
     font-size: clamp(2.75rem, 14vw, 4.5rem);
     text-wrap: balance;
   }
@@ -2468,32 +2351,17 @@ section[id] {
     margin-top: 5rem;
   }
 
-  .contact {
-    min-height: 800px;
-  }
-
-  .contact-copy {
-    margin: 14vh 0 0;
-  }
-
-  .contact-mail,
-  .contact-phone {
-    overflow-wrap: anywhere;
-  }
-
-  .contact-footer {
-    right: 5vw;
-    bottom: 1.5rem;
-    left: 5vw;
+  .site-footer {
     grid-template-columns: 1fr auto;
     gap: 1.5rem;
+    padding-inline: 5vw;
   }
 
-  .contact-footer > a {
+  .site-footer > a {
     padding-block: 0.35rem;
   }
 
-  .contact-footer > p {
+  .site-footer > p {
     font-size: 0.5rem;
   }
 }

@@ -52,6 +52,8 @@ test("server-renders Ahmed's production portfolio", async () => {
   assert.match(html, /class="hero-contact-bar"/);
   assert.match(html, /mailto:ahmed\.moh\.abdelaal\.dev@gmail\.com/);
   assert.match(html, /href="tel:\+201021470391"/);
+  assert.match(html, /aria-label="Email Ahmed at ahmed\.moh\.abdelaal\.dev@gmail\.com"/);
+  assert.match(html, /aria-label="Call Ahmed at \+201021470391"/);
   assert.match(html, /href="\/Ahmed_Mohamed_AbdelAal_CV\.pdf"/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
 });

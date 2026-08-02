@@ -7,13 +7,13 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import {
-  FaEnvelope,
   FaFacebookF,
   FaGithub,
   FaInstagram,
   FaLinkedinIn,
   FaPhoneAlt,
 } from "react-icons/fa";
+import { SiGmail } from "react-icons/si";
 
 type Lang = "en" | "ar";
 type Localized = { en: string; ar: string };
@@ -615,18 +615,21 @@ export default function Home() {
                   <Icon aria-hidden="true" focusable="false" />
                 </a>
               ))}
+              <a
+                href="mailto:ahmed.moh.abdelaal.dev@gmail.com"
+                aria-label="Email Ahmed at ahmed.moh.abdelaal.dev@gmail.com"
+                title="ahmed.moh.abdelaal.dev@gmail.com"
+              >
+                <SiGmail aria-hidden="true" focusable="false" />
+              </a>
+              <a
+                href="tel:+201021470391"
+                aria-label="Call Ahmed at +201021470391"
+                title="+201021470391"
+              >
+                <FaPhoneAlt aria-hidden="true" focusable="false" />
+              </a>
             </div>
-            <a
-              className="hero-contact-link hero-email"
-              href="mailto:ahmed.moh.abdelaal.dev@gmail.com"
-            >
-              <FaEnvelope aria-hidden="true" focusable="false" />
-              <span>ahmed.moh.abdelaal.dev@gmail.com</span>
-            </a>
-            <a className="hero-contact-link" href="tel:+201021470391">
-              <FaPhoneAlt aria-hidden="true" focusable="false" />
-              <span>+201021470391</span>
-            </a>
           </div>
           <div className="hero-bottom">
             <p>{t.heroBody}</p>

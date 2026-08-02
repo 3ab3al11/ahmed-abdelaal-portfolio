@@ -47,7 +47,7 @@ test("server-renders Ahmed's production portfolio", async () => {
   assert.match(html, /href="https:\/\/www\.facebook\.com\/3ab3al10\/"/);
   assert.match(
     html,
-    /href="https:\/\/www\.instagram\.com\/iahmed3ab3al"/,
+    /href="https:\/\/www\.instagram\.com\/ahmed3ab3al"/,
   );
   assert.match(html, /class="hero-contact-bar"/);
   assert.match(html, /mailto:ahmed\.moh\.abdelaal\.dev@gmail\.com/);

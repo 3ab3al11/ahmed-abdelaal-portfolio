@@ -296,7 +296,7 @@ const socialLinks = [
   },
   {
     label: "Instagram",
-    href: "https://www.instagram.com/iahmed3ab3al",
+    href: "https://www.instagram.com/ahmed3ab3al",
     Icon: FaInstagram,
   },
 ] as const;

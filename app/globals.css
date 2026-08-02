@@ -450,14 +450,59 @@ section[id] {
   animation-delay: 2.7s !important;
 }
 
+.hero-contact-bar {
+  display: flex;
+  width: min(760px, 62vw);
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin: 1.3rem 0 0 1vw;
+  animation: heroFadeUp 700ms cubic-bezier(0.22, 1, 0.36, 1) 2.82s both;
+}
+
+.hero-contact-link {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(238, 241, 232, 0.035);
+  color: var(--paper-muted);
+  direction: ltr;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.02em;
+  unicode-bidi: embed;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.hero-contact-link svg {
+  flex: 0 0 auto;
+  color: var(--lime);
+}
+
+.hero-contact-link:hover,
+.hero-contact-link:focus-visible {
+  border-color: rgba(201, 255, 99, 0.65);
+  background: rgba(201, 255, 99, 0.08);
+  color: var(--paper);
+  transform: translateY(-2px);
+}
+
 .hero-bottom {
   display: flex;
   width: min(760px, 62vw);
   align-items: end;
   justify-content: space-between;
   gap: 3rem;
-  margin: 3.2rem 0 0 1vw;
-  animation: heroFadeUp 700ms cubic-bezier(0.22, 1, 0.36, 1) 2.85s both;
+  margin: 1.3rem 0 0 1vw;
+  animation: heroFadeUp 700ms cubic-bezier(0.22, 1, 0.36, 1) 2.95s both;
 }
 
 .hero-bottom > p {
@@ -1833,7 +1878,7 @@ section[id] {
   bottom: 2rem;
   left: 4vw;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr auto;
   align-items: center;
   padding-top: 1.5rem;
   border-top: 1px solid var(--line);
@@ -2156,6 +2201,10 @@ section[id] {
     width: 64vw;
   }
 
+  .hero-contact-bar {
+    width: 64vw;
+  }
+
   .project-card {
     min-height: 560px;
   }
@@ -2237,7 +2286,30 @@ section[id] {
     flex-direction: column;
     align-items: start;
     gap: 1.35rem;
-    margin: 2.2rem 0 0;
+    margin: 1.4rem 0 0;
+  }
+
+  .hero-contact-bar {
+    width: 100%;
+    margin: 1.4rem 0 0;
+  }
+
+  .hero-contact-bar .social-links {
+    width: 100%;
+  }
+
+  .hero-contact-link {
+    min-width: 0;
+    max-width: 100%;
+    min-height: 42px;
+    padding-inline: 0.7rem;
+    font-size: 0.52rem;
+  }
+
+  .hero-contact-link span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .hero-bottom > p {
@@ -2458,11 +2530,6 @@ section[id] {
     left: 5vw;
     grid-template-columns: 1fr auto;
     gap: 1.5rem;
-  }
-
-  .social-links {
-    grid-column: 1 / -1;
-    flex-wrap: wrap;
   }
 
   .contact-footer > a {

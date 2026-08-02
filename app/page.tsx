@@ -7,10 +7,12 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import {
+  FaEnvelope,
   FaFacebookF,
   FaGithub,
   FaInstagram,
   FaLinkedinIn,
+  FaPhoneAlt,
 } from "react-icons/fa";
 
 type Lang = "en" | "ar";
@@ -599,6 +601,33 @@ export default function Home() {
             <span className="hero-name-solid">{t.firstName}</span>
             <span className="hero-name-outline">{t.lastName}</span>
           </h1>
+          <div className="hero-contact-bar">
+            <div className="social-links ltr" aria-label={t.socialLabel}>
+              {socialLinks.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  title={label}
+                >
+                  <Icon aria-hidden="true" focusable="false" />
+                </a>
+              ))}
+            </div>
+            <a
+              className="hero-contact-link hero-email"
+              href="mailto:ahmed.moh.abdelaal.dev@gmail.com"
+            >
+              <FaEnvelope aria-hidden="true" focusable="false" />
+              <span>ahmed.moh.abdelaal.dev@gmail.com</span>
+            </a>
+            <a className="hero-contact-link" href="tel:+201021470391">
+              <FaPhoneAlt aria-hidden="true" focusable="false" />
+              <span>+201021470391</span>
+            </a>
+          </div>
           <div className="hero-bottom">
             <p>{t.heroBody}</p>
             <div className="hero-actions">
@@ -868,20 +897,6 @@ export default function Home() {
           </a>
         </div>
         <div className="contact-footer">
-          <div className="social-links ltr" aria-label={t.socialLabel}>
-            {socialLinks.map(({ label, href, Icon }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={label}
-                title={label}
-              >
-                <Icon aria-hidden="true" focusable="false" />
-              </a>
-            ))}
-          </div>
           <p>© {new Date().getFullYear()} Ahmed Mohamed Abd ElAal</p>
           <a href="#top">{t.backToTop} ↑</a>
         </div>

@@ -148,8 +148,8 @@ const projects: Array<{
       ar: "منصة مبنية بـASP.NET Core MVC لإدارة طلبات التقديم، والتحقق الآمن من الملفات، والتوزيع القائم على قواعد ثابتة، واستيراد ما يصل إلى 5,000 سجل من Excel مع الحفاظ على إمكانية التتبع.",
     },
     role: {
-      en: "Co-engineered the system in a two-developer team. I contributed to the deterministic allocation workflow, file-safety validation, transactional Excel bulk importer, and the automated xUnit test suite.",
-      ar: "شاركت في تطوير النظام ضمن فريق من مطورين، وساهمت في منطق التوزيع القائم على قواعد ثابتة، والتحقق الآمن من الملفات، واستيراد Excel بشكل Transactional، واختبارات xUnit الآلية.",
+      en: "Co-engineered the system in a four-person team. I contributed to the deterministic allocation workflow, file-safety validation, transactional Excel bulk importer, and the automated xUnit test suite.",
+      ar: "شاركت في تطوير النظام ضمن فريق من 4 أفراد، وساهمت في منطق التوزيع القائم على قواعد ثابتة، والتحقق الآمن من الملفات، واستيراد Excel بشكل Transactional، واختبارات xUnit الآلية.",
     },
     href: "https://github.com/3ab3al11/University-Admission-System",
     image: "/project-admission.webp",

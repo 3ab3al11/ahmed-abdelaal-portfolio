@@ -36,6 +36,7 @@ test("server-renders Ahmed's production portfolio", async () => {
   assert.match(html, /AHMED/);
   assert.match(html, /ABD ELAAL/);
   assert.match(html, /University Admission System/);
+  assert.match(html, /four-person team/);
   assert.match(html, /E-Commerce Platform/);
   assert.match(html, /href="https:\/\/github\.com\/3ab3al11\/E-Commerce-Platform"/);
   assert.match(html, /src="\/project-ecommerce\.webp"/);

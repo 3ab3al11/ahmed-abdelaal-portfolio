@@ -36,7 +36,11 @@ test("server-renders Ahmed's production portfolio", async () => {
   assert.match(html, /AHMED/);
   assert.match(html, /ABD ELAAL/);
   assert.match(html, /University Admission System/);
-  assert.match(html, /Clinic Flow/);
+  assert.match(html, /E-Commerce Platform/);
+  assert.match(html, /href="https:\/\/github\.com\/3ab3al11\/E-Commerce-Platform"/);
+  assert.match(html, /src="\/project-ecommerce\.webp"/);
+  assert.match(html, /Stripe Checkout/);
+  assert.doesNotMatch(html, /Clinic Flow|github\.com\/3ab3al11\/Clinic_Flow/);
   assert.match(html, /Football Field Booking/);
   assert.match(html, /Backend · Freelance/);
   assert.match(html, /href="https:\/\/github\.com\/3ab3al11"/);
